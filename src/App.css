@@ -2,28 +2,6 @@
   padding: 1rem;
 }
 
-.RegisterDrivers {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-.RegisterDrivers__Row {
-  display: flex;
-  align-items: center;
-}
-
-.RegisterDrivers__RemoveRow  {
-  width: 40px;
-  height: 40px;
-  padding: 10px;
-  margin-right: -12px;
-}
-
-.RegisterDrivers__RemoveRow {
-  fill: var(--gray-3);
-}
-
 input {
   flex: 1;
   border-radius: 4px;

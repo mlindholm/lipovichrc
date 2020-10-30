@@ -1,62 +1,29 @@
 import React, { useState, useEffect } from 'react'
-import { get, set } from 'idb-keyval'
+import { get } from 'idb-keyval'
 import './App.css'
-import { ReactComponent as CloseIcon } from './images/close.svg'
+import RegisterDrivers from './RegisterDrivers'
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [drivers, setDrivers] = useState([{ id: count, name: '' }])
+  const [data, setData] = useState()
 
   useEffect(() => {
-    set('drivers', drivers)
-  }, [drivers])
+    async function fetchDrivers() {
+      const drivers = await get('drivers')
+      setData(drivers)
+    }
+    fetchDrivers()
+  })
 
-  const updateDriver = id => event => {
-    const index = drivers.findIndex(driver => driver.id === id);
-    const newArray = [...drivers]
-    newArray[index] = { id, name: event.target.value }
-    setDrivers(newArray)
-  }
+  if (!data) return <RegisterDrivers />
 
-  const addDriver = () => {
-    const newArray = [...drivers, { id: count + 1, name: '' }]
-    setDrivers(newArray)
-    setCount(count + 1)
-  }
-
-  const removeDriver = id => {
-    const newArray = [...drivers].filter(item => item.id !== id)
-    setDrivers(newArray)
-  }
-
-  const startRace = () => {
-    var newArray = drivers.filter(value => value.name !== '')
-    setDrivers(newArray)
-    console.log(newArray)
-  }
 
   return (
     <div className="App">
-      <div className="RegisterDrivers">
-        <h3>Enter Drivers</h3>
-        {drivers.map(driver => (
-          <div key={driver.id} className="RegisterDrivers__Row">
-            <input
-              autoFocus
-              type="text"
-              value={driver.name}
-              onChange={updateDriver(driver.id)}
-              onKeyPress={event => event.key === 'Enter' && addDriver()}
-              />
-            <div className="RegisterDrivers__RemoveRow" onClick={() => removeDriver(driver.id)}>
-              <CloseIcon />
-            </div>
-          </div>
-          )
-          )}
-        <button onClick={() => addDriver()}>Add Driver</button>
-        <button onClick={() => startRace()}>Start Race</button>
-      </div>
+      <h3>Stage 1, Driver 1</h3>
+      {data.map(driver => <p>{JSON.stringify(driver)}</p>)}
+      <button>Previous Stage</button>
+      <button>Next Stage</button>
+      <button>End Race</button>
     </div>
   );
 }
