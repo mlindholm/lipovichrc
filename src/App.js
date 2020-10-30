@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import { get, set } from 'idb-keyval'
+import './App.css'
 import { ReactComponent as CloseIcon } from './images/close.svg'
 
 function App() {
   const [count, setCount] = useState(0);
   const [drivers, setDrivers] = useState([{ id: count, name: '' }])
+
+  useEffect(() => {
+    set('drivers', drivers)
+  }, [drivers])
 
   const updateDriver = id => event => {
     const index = drivers.findIndex(driver => driver.id === id);
