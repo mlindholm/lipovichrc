@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { set } from 'idb-keyval'
 import './RegisterDrivers.css'
 import { ReactComponent as CloseIcon } from './images/close.svg'
@@ -40,6 +40,7 @@ function RegisterDrivers() {
             autoFocus
             type="text"
             value={driver.name}
+            placeholder="Name"
             onChange={updateDriver(driver.id)}
             onKeyPress={event => event.key === 'Enter' && addDriver()}
             />
