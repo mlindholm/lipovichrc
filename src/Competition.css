@@ -97,6 +97,10 @@
 
 .Footer__Button {
   flex-basis: 48%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: var(--white);
 }
 
 .Footer__SecondaryButton {

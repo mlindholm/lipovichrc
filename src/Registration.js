@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { useIdb } from 'react-use-idb'
-import './RegisterDrivers.css'
+import './Registration.css'
 import { ReactComponent as CloseIcon } from './images/close.svg'
 
-function RegisterDrivers() {
+function Registration({startFunc}) {
   const [count, setCount] = useState(0)
-  const [drivers, setDrivers] = useIdb('drivers', [{ id: count, name: '' }])
+  const [drivers, setDrivers] = useState([{ id: count, name: '' }])
 
   const updateDriver = id => event => {
     const index = drivers.findIndex(driver => driver.id === id);
@@ -25,16 +24,16 @@ function RegisterDrivers() {
     setDrivers(newArray)
   }
 
-  const startRace = () => {
+  const start = () => {
     var newArray = drivers.filter(value => value.name !== '')
-    setDrivers(newArray)
+    startFunc(newArray)
   }
 
   return (
-    <div className="RegisterDrivers">
+    <div className="Registration">
       <h3>Enter Drivers</h3>
       {drivers.map(driver => (
-        <div key={driver.id} className="RegisterDrivers__Row">
+        <div key={driver.id} className="Registration__Row">
           <input
             autoFocus
             type="text"
@@ -44,17 +43,17 @@ function RegisterDrivers() {
             onKeyPress={event => event.key === 'Enter' && addDriver()}
           />
           {driver.name && (
-            <div className="RegisterDrivers__RemoveRow" onClick={() => removeDriver(driver.id)}>
+            <div className="Registration__RemoveRow" onClick={() => removeDriver(driver.id)}>
               <CloseIcon width={20} height={20} />
             </div>
           )}
         </div>
         )
         )}
-      <button className="RegisterDrivers__Button" onClick={() => addDriver()}>Add Driver</button>
-      <button className="RegisterDrivers__Button" onClick={() => startRace()}>Start Comp</button>
+      <button className="Registration__Button" onClick={() => addDriver()}>Add Driver</button>
+      <button className="Registration__Button" onClick={() => start()}>Start Competition</button>
     </div>
   )
 }
 
-export default RegisterDrivers
+export default Registration

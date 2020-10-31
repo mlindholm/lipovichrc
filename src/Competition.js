@@ -5,7 +5,7 @@ import { ReactComponent as RightIcon } from './images/chevron-right.svg'
 import { ReactComponent as AddIcon } from './images/add.svg'
 import { ReactComponent as RemoveIcon } from './images/remove.svg'
 
-function Competition({drivers}) {
+function Competition({drivers, endFunc}) {
   return (
     <>
     <div className="Navigation">
@@ -36,9 +36,9 @@ function Competition({drivers}) {
           <div className="Stepper__Points">+1 point</div>
         </div>
         <div className="Stepper">
-          <button className="Stepper__Button"><RemoveIcon /></button>
+          <button className="Stepper__Button"><RemoveIcon width={20} height={20} /></button>
           <input className="Stepper__Input" type="text" value="00" />
-          <button className="Stepper__Button"><AddIcon /></button>
+          <button className="Stepper__Button"><AddIcon width={20} height={20} /></button>
         </div>
       </div>
       <div className="Stepper__Container">
@@ -47,19 +47,19 @@ function Competition({drivers}) {
           <div className="Stepper__Points">+10 points</div>
         </div>
         <div className="Stepper">
-          <button className="Stepper__Button"><RemoveIcon /></button>
+          <button className="Stepper__Button"><RemoveIcon width={20} height={20} /></button>
           <input className="Stepper__Input" type="text" value="00" />
-          <button className="Stepper__Button"><AddIcon /></button>
+          <button className="Stepper__Button"><AddIcon width={20} height={20} /></button>
         </div>
       </div>
     </div>
     <div className="Footer">
       <div className="Footer__ButtonContainer">
-        <button className="Footer__Button">&larr; Prev. Course</button>
-        <button className="Footer__Button">Next Course &rarr;</button>
+        <button className="Footer__Button"><LeftIcon width={20} height={20} /> Prev. Course</button>
+        <button className="Footer__Button">Next Course <RightIcon width={20} height={20} /></button>
       </div>
       <div className="Footer__ButtonContainer">
-        <button className="Footer__SecondaryButton">End Race?</button>
+        <button className="Footer__SecondaryButton" onClick={endFunc}>End Competition?</button>
         <button className="Footer__SecondaryButton">SORRCA Rules</button>
       </div>
     </div>

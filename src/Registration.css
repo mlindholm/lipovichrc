@@ -1,18 +1,18 @@
-.RegisterDrivers {
+.Registration {
   padding: 16px;
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
-.RegisterDrivers__Row {
+.Registration__Row {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
   position: relative;
 }
 
-.RegisterDrivers__RemoveRow  {
+.Registration__RemoveRow  {
   position: absolute;
   right: 0;
   top: 0;
@@ -22,6 +22,6 @@
   line-height: 0;
 }
 
-.RegisterDrivers__Button {
+.Registration__Button {
   margin-bottom: 8px;
 }
