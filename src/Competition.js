@@ -58,10 +58,7 @@ function Competition({drivers, endFunc}) {
         <button className="Footer__Button"><LeftIcon width={20} height={20} /> Prev. Course</button>
         <button className="Footer__Button">Next Course <RightIcon width={20} height={20} /></button>
       </div>
-      <div className="Footer__ButtonContainer">
-        <button className="Footer__SecondaryButton" onClick={endFunc}>End Competition?</button>
-        <button className="Footer__SecondaryButton">SORRCA Rules</button>
-      </div>
+      <button className="Footer__SecondaryButton" onClick={endFunc}>End Competition</button>
     </div>
     </>
   )
