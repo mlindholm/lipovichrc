@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIdb } from 'react-use-idb'
 import './App.css'
+import './Navigation.css'
 import Registration from './Registration'
 import Competition from './Competition'
 import Finish from './Finish'

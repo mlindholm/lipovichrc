@@ -1,0 +1,49 @@
+
+.Navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--midnight);
+  height: 64px;
+}
+
+.Navigation__Title {
+  color: var(--white);
+  font-size: 19px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.Navigation__Button {
+  background-color: var(--midnight);
+  line-height: 0;
+  margin: 8px 0;
+  padding: 12px;
+  fill: var(--white);
+}
+
+.Navigation__DriverSelect {
+  background-color: var(--midnight);
+  color: var(--white);
+  border: none;
+  font-size: 19px;
+  font-weight: 700;
+  outline: none;
+  padding: 8px;
+  text-align: center;
+  -moz-text-align-last: center;
+  text-align-last: center;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.Navigation__Course {
+  font-size: 13px;
+  margin-top: -4px;
+  margin-bottom: 8px;
+}
