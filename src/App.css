@@ -13,11 +13,10 @@
 html {
   box-sizing: border-box;
   font-size: 16px;
-  background-color: var(--white);
 }
 
 body {
-  background-color: var(--white);
+  background-color: var(--midnight);
   color: var(--gray-1);
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Noto', sans-serif;
   line-height: 1.25;
@@ -29,6 +28,10 @@ body {
 
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+#root {
+  background-color: var(--white);
 }
 
 input {
