@@ -1,9 +1,10 @@
 import React from 'react'
 import './Competition.css'
 import Stepper from './Stepper'
+import { coursePoints } from './coursePoints'
 import { ReactComponent as LeftIcon } from './images/chevron-left.svg'
 import { ReactComponent as RightIcon } from './images/chevron-right.svg'
-import { coursePoints } from './coursePoints'
+import { ReactComponent as HelpIcon } from './images/help.svg'
 
 function Competition({drivers, endFunc}) {
   return (
@@ -25,6 +26,7 @@ function Competition({drivers, endFunc}) {
             <div className="CoursePoint__Name">{item.name}</div>
             <div className="CoursePoint__Points">{item.points > 0 ? '+' + item.points : item.points}</div>
           </div>
+          <button className="CoursePoint__HelpButton" onClick={() => alert(item.description)}><HelpIcon width={20} height={20} /></button>
           <Stepper max={item.max} />
         </div>
       ))}
