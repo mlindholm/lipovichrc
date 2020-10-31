@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: var(--white);
-  border-bottom: 1px solid var(--black-10);
+  border-bottom: 1px solid var(--gray-5);
 }
 
 .Navigation__Button {
@@ -49,7 +49,7 @@
   justify-content: space-between;
   margin-bottom: 16px;
   padding-bottom: 16px;
-  border-bottom: 1px solid var(--black-10);
+  border-bottom: 1px solid var(--gray-5);
 }
 
 .CoursePoint__Name {
@@ -81,7 +81,7 @@
 }
 
 .Footer__SecondaryButton {
-  background-color: var(--black-10);
+  background-color: var(--gray-5);
   color: var(--gray-1);
   font-size: 13px;
   padding: 6px;

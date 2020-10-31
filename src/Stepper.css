@@ -7,7 +7,7 @@
   line-height: 0;
   background-color: var(--white);
   padding: 7px;
-  border: 1px solid var(--black-20);
+  border: 1px solid var(--gray-4);
 }
 
 .Stepper__Button:first-child {
@@ -21,7 +21,7 @@
 }
 
 .Stepper__Input {
-  border: 1px solid var(--black-20);
+  border: 1px solid var(--gray-4);
   border-left: none;
   border-right: none;
   font-size: 14px;
