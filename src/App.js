@@ -5,11 +5,14 @@ import Registration from './Registration'
 import Competition from './Competition'
 import { AppStates } from './Enums'
 
+const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Object.entries((obj || {})).length;
+
 function App() {
   const [currentState, setCurrentState] = useIdb('state', AppStates.Register)
   const [drivers, setDrivers] = useIdb('drivers')
 
   const startCompetition = data => {
+    if (isEmpty(data)) return
     setCurrentState(AppStates.Compete)
     setDrivers(data)
   }
@@ -29,11 +32,11 @@ function App() {
     setDrivers(undefined)
   }
 
-  if (!drivers && currentState === AppStates.Register) return <Registration startFunc={startCompetition} />
-  if (drivers && currentState === AppStates.Compete) return <Competition drivers={drivers} endFunc={confirmEndCompetition} />
-  if (drivers && currentState === AppStates.Finished) return (
+  if (isEmpty(drivers) && currentState === AppStates.Register) return <Registration startFunc={startCompetition} />
+  if (!isEmpty(drivers) && currentState === AppStates.Compete) return <Competition drivers={drivers} endFunc={confirmEndCompetition} />
+  if (!isEmpty(drivers) && currentState === AppStates.Finished) return (
     <div className="Registration">
-      <h1>Finished!</h1>
+      <h2 className="Registration__Title">Finished!</h2>
       <button onClick={restartCompetition}>Restart</button>&ensp;
       <button onClick={undoEndCompetition}>Undo</button>
     </div>

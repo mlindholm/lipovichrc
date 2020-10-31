@@ -2,7 +2,14 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  text-align: flex-start;
+  min-height: 100vh;
+}
+
+.Registration__Title {
+  font-size: 20px;
+  margin-top: 8px;
+  margin-bottom: 16px;
 }
 
 .Registration__Row {
@@ -23,5 +30,6 @@
 }
 
 .Registration__Button {
-  margin-bottom: 8px;
+  margin-top: 8px;
+  width: 100%;
 }

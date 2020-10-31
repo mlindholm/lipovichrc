@@ -26,7 +26,7 @@ function Competition({drivers, endFunc}) {
         </div>
         <div className="Stepper">
           <button className="Stepper__Button"><RemoveIcon width={20} height={20} /></button>
-          <input className="Stepper__Input" type="text" value="00" />
+          <input className="Stepper__Input" type="number" value={0} min={0} />
           <button className="Stepper__Button"><AddIcon width={20} height={20} /></button>
         </div>
       </div>
@@ -37,7 +37,7 @@ function Competition({drivers, endFunc}) {
         </div>
         <div className="Stepper">
           <button className="Stepper__Button"><RemoveIcon width={20} height={20} /></button>
-          <input className="Stepper__Input" type="text" value="00" />
+          <input className="Stepper__Input" type="number" value={0} min={0} />
           <button className="Stepper__Button"><AddIcon width={20} height={20} /></button>
         </div>
       </div>
@@ -48,7 +48,7 @@ function Competition({drivers, endFunc}) {
         </div>
         <div className="Stepper">
           <button className="Stepper__Button"><RemoveIcon width={20} height={20} /></button>
-          <input className="Stepper__Input" type="text" value="00" />
+          <input className="Stepper__Input" type="number" value={0} min={0} />
           <button className="Stepper__Button"><AddIcon width={20} height={20} /></button>
         </div>
       </div>

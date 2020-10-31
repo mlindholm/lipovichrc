@@ -31,11 +31,12 @@ function Registration({startFunc}) {
 
   return (
     <div className="Registration">
-      <h3>Enter Drivers</h3>
+      <h2 className="Registration__Title">Enter Drivers</h2>
       {drivers.map(driver => (
         <div key={driver.id} className="Registration__Row">
           <input
             autoFocus
+            name="name"
             type="text"
             value={driver.name}
             placeholder="Name"
