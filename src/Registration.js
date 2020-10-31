@@ -35,9 +35,10 @@ function Registration({startFunc}) {
       {drivers.map(driver => (
         <div key={driver.id} className="Registration__Row">
           <input
-            autoFocus
             name="name"
             type="text"
+            autoFocus={true}
+            autocomplete="off"
             value={driver.name}
             placeholder="Name"
             onChange={updateDriver(driver.id)}
