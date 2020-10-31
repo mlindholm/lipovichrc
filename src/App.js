@@ -31,7 +31,13 @@ function App() {
 
   if (!drivers && currentState === AppStates.Register) return <Registration startFunc={startCompetition} />
   if (drivers && currentState === AppStates.Compete) return <Competition drivers={drivers} endFunc={confirmEndCompetition} />
-  if (drivers && currentState === AppStates.Finished) return <><h1 onClick={restartCompetition}>Finished!</h1><button onClick={undoEndCompetition}>Undo</button></>
+  if (drivers && currentState === AppStates.Finished) return (
+    <div className="Registration">
+      <h1>Finished!</h1>
+      <button onClick={restartCompetition}>Restart</button>&ensp;
+      <button onClick={undoEndCompetition}>Undo</button>
+    </div>
+  )
   return null
 }
 
