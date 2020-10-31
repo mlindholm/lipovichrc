@@ -15,21 +15,21 @@
 .Registration__Row {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   position: relative;
 }
 
 .Registration__RemoveRow  {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 3;
   fill: var(--gray-3);
-  padding: 12px;
+  padding: 10px;
   flex-shrink: 0;
   line-height: 0;
 }
 
 .Registration__Button {
-  margin-top: 8px;
   width: 100%;
+  margin-bottom: 10px;
 }

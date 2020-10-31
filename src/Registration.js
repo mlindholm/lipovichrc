@@ -46,7 +46,7 @@ function Registration({startFunc}) {
           />
           {driver.name && (
             <div className="Registration__RemoveRow" onClick={() => removeDriver(driver.id)}>
-              <CloseIcon width={20} height={20} />
+              <CloseIcon width={18} height={18} />
             </div>
           )}
         </div>

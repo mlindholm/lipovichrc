@@ -1,12 +1,13 @@
 :root {
-  --gray-1: #111;
-  --gray-2: #666;
-  --gray-3: #999;
-  --gray-4: #ccc;
-  --gray-5: #e5e5e5;
+  --gray-1: #17191c;
+  --gray-2: #494f57;
+  --gray-3: #868c96;
+  --gray-4: #ced3da;
+  --gray-5: #e9ebef;
+  --orange: #f78818;
+  --orange-dark: #e66d00;
+  --midnight: #12223a;
   --white: #fff;
-  --orange: #F78818;
-  --orange-dark: #E66D00;
 }
 
 html {
@@ -32,12 +33,16 @@ body {
 
 input {
   border-radius: 4px;
-  border: 1px solid var(--gray-5);
+  border: 1px solid var(--gray-4);
   font-size: 14px;
   font-family: inherit;
   line-height: 24px;
   padding: 9px;
   width: 100%;
+}
+
+input::placeholder {
+  color: var(--gray-3);
 }
 
 button {
