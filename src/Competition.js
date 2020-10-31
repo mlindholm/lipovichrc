@@ -1,9 +1,9 @@
 import React from 'react'
 import './Competition.css'
+import Stepper from './Stepper'
 import { ReactComponent as LeftIcon } from './images/chevron-left.svg'
 import { ReactComponent as RightIcon } from './images/chevron-right.svg'
-import { ReactComponent as AddIcon } from './images/add.svg'
-import { ReactComponent as RemoveIcon } from './images/remove.svg'
+import { coursePoints } from './coursePoints'
 
 function Competition({drivers, endFunc}) {
   return (
@@ -19,39 +19,15 @@ function Competition({drivers, endFunc}) {
       <button className="Navigation__Button"><RightIcon /></button>
     </div>
     <div className="Competition">
-      <div className="Stepper__Container">
-        <div>
-          <div className="Stepper__Label">Progress</div>
-          <div className="Stepper__Points">-2 points</div>
+      {coursePoints.map(item => (
+        <div key={item.name} className="CoursePoint">
+          <div>
+            <div className="CoursePoint__Name">{item.name}</div>
+            <div className="CoursePoint__Points">{item.points > 0 ? '+' + item.points : item.points}</div>
+          </div>
+          <Stepper max={item.max} />
         </div>
-        <div className="Stepper">
-          <button className="Stepper__Button"><RemoveIcon width={20} height={20} /></button>
-          <input className="Stepper__Input" type="number" value={0} min={0} />
-          <button className="Stepper__Button"><AddIcon width={20} height={20} /></button>
-        </div>
-      </div>
-      <div className="Stepper__Container">
-        <div>
-          <div className="Stepper__Label">Reverse</div>
-          <div className="Stepper__Points">+1 point</div>
-        </div>
-        <div className="Stepper">
-          <button className="Stepper__Button"><RemoveIcon width={20} height={20} /></button>
-          <input className="Stepper__Input" type="number" value={0} min={0} />
-          <button className="Stepper__Button"><AddIcon width={20} height={20} /></button>
-        </div>
-      </div>
-      <div className="Stepper__Container">
-        <div>
-          <div className="Stepper__Label">Gate Marker:</div>
-          <div className="Stepper__Points">+10 points</div>
-        </div>
-        <div className="Stepper">
-          <button className="Stepper__Button"><RemoveIcon width={20} height={20} /></button>
-          <input className="Stepper__Input" type="number" value={0} min={0} />
-          <button className="Stepper__Button"><AddIcon width={20} height={20} /></button>
-        </div>
-      </div>
+      ))}
     </div>
     <div className="Footer">
       <div className="Footer__ButtonContainer">

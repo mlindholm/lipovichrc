@@ -43,56 +43,26 @@
   margin-bottom: 8px;
 }
 
-.Stepper__Container {
+.CoursePoint {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--black-10);
 }
 
-.Stepper__Label {
+.CoursePoint__Name {
   font-weight: 700;
 }
 
-.Stepper__Points {
+.CoursePoint__Points {
   font-size: 14px;
   margin-top: 2px;
 }
 
-.Stepper {
-  display: flex;
-}
-
-.Stepper__Button {
-  fill: var(--gray-1);
-  line-height: 0;
-  background-color: var(--white);
-  padding: 7px;
-  border: 1px solid var(--black-20);
-}
-
-.Stepper__Button:first-child {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.Stepper__Button:last-child {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.Stepper__Input {
-  margin: 0 -1px;
-  border-radius: 0;
-  padding: 7px;
-  width: 48px;
-  text-align: center;
-}
-
 .Footer {
-  padding: 0 16px;
+  padding: 0 16px 16px;
   text-align: center;
 }
 
