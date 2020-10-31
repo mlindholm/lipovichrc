@@ -33,8 +33,14 @@ function Competition({drivers, endFunc}) {
     </div>
     <div className="Footer">
       <div className="Footer__ButtonContainer">
-        <button className="Footer__Button"><LeftIcon width={20} height={20} /> Prev. Course</button>
-        <button className="Footer__Button">Next Course <RightIcon width={20} height={20} /></button>
+        <button className="Footer__Button">
+          <LeftIcon width={21} height={21} />
+          Prev. Course
+        </button>
+        <button className="Footer__Button">
+          Next Course
+          <RightIcon width={21} height={21} />
+          </button>
       </div>
       <button className="Footer__SecondaryButton" onClick={endFunc}>End Competition</button>
     </div>
