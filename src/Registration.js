@@ -38,7 +38,7 @@ function Registration({startFunc}) {
             name="name"
             type="text"
             autoFocus={true}
-            autocomplete="off"
+            autoComplete="off"
             value={driver.name}
             placeholder="Name"
             onChange={updateDriver(driver.id)}
