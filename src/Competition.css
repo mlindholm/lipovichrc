@@ -92,7 +92,7 @@
 .Footer__SecondaryButton {
   background-color: var(--gray-5);
   color: var(--gray-1);
-  font-size: 13px;
+  font-size: 14px;
   padding: 6px;
   flex-basis: 100%;
   margin-top: 16px;

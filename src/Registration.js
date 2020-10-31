@@ -50,8 +50,7 @@ function Registration({startFunc}) {
             </div>
           )}
         </div>
-        )
-        )}
+      ))}
       <button className="Registration__Button" onClick={() => addDriver()}>Add Driver</button>
       <button className="Registration__Button" onClick={() => start()}>Start Competition</button>
     </div>
