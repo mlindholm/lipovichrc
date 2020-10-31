@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { set } from 'idb-keyval'
+import { useIdb } from 'react-use-idb'
 import './RegisterDrivers.css'
 import { ReactComponent as CloseIcon } from './images/close.svg'
 
 function RegisterDrivers() {
-  const [count, setCount] = useState(0);
-  const [drivers, setDrivers] = useState([{ id: count, name: '' }])
+  const [count, setCount] = useState(0)
+  const [drivers, setDrivers] = useIdb('drivers', [{ id: count, name: '' }])
 
   const updateDriver = id => event => {
     const index = drivers.findIndex(driver => driver.id === id);
@@ -28,7 +28,6 @@ function RegisterDrivers() {
   const startRace = () => {
     var newArray = drivers.filter(value => value.name !== '')
     setDrivers(newArray)
-    set('drivers', newArray)
   }
 
   return (
@@ -43,15 +42,17 @@ function RegisterDrivers() {
             placeholder="Name"
             onChange={updateDriver(driver.id)}
             onKeyPress={event => event.key === 'Enter' && addDriver()}
-            />
-          <div className="RegisterDrivers__RemoveRow" onClick={() => removeDriver(driver.id)}>
-            <CloseIcon />
-          </div>
+          />
+          {driver.name && (
+            <div className="RegisterDrivers__RemoveRow" onClick={() => removeDriver(driver.id)}>
+              <CloseIcon width={20} height={20} />
+            </div>
+          )}
         </div>
         )
         )}
-      <button onClick={() => addDriver()}>Add Driver</button>
-      <button onClick={() => startRace()}>Start Race</button>
+      <button className="RegisterDrivers__Button" onClick={() => addDriver()}>Add Driver</button>
+      <button className="RegisterDrivers__Button" onClick={() => startRace()}>Start Comp</button>
     </div>
   )
 }
