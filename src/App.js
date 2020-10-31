@@ -3,6 +3,7 @@ import { useIdb } from 'react-use-idb'
 import './App.css'
 import Registration from './Registration'
 import Competition from './Competition'
+import Finish from './Finish'
 import { AppStates } from './Enums'
 
 const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Object.entries((obj || {})).length;
@@ -34,13 +35,7 @@ function App() {
 
   if (isEmpty(drivers) && currentState === AppStates.Register) return <Registration startFunc={startCompetition} />
   if (!isEmpty(drivers) && currentState === AppStates.Compete) return <Competition drivers={drivers} endFunc={confirmEndCompetition} />
-  if (!isEmpty(drivers) && currentState === AppStates.Finished) return (
-    <div className="Registration">
-      <h2 className="Registration__Title">Finished!</h2>
-      <button onClick={restartCompetition}>Restart</button>&ensp;
-      <button onClick={undoEndCompetition}>Undo</button>
-    </div>
-  )
+  if (!isEmpty(drivers) && currentState === AppStates.Finished) return <Finish undoEndFunc={undoEndCompetition} restartFunc={restartCompetition} />
   return null
 }
 

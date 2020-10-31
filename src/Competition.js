@@ -11,7 +11,7 @@ function Competition({drivers, endFunc}) {
     <>
     <div className="Navigation">
       <button className="Navigation__Button"><LeftIcon /></button>
-      <div>
+      <div className="Navigation__Title">
         <select className="Navigation__DriverSelect">
           {drivers.map(driver => <option key={driver.id} value={driver.id}>{driver.name}</option>)}
         </select>

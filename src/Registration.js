@@ -30,30 +30,34 @@ function Registration({startFunc}) {
   }
 
   return (
-    <div className="Registration">
-      <h2 className="Registration__Title">Enter Drivers</h2>
-      {drivers.map(driver => (
-        <div key={driver.id} className="Registration__Row">
-          <input
-            name="name"
-            type="text"
-            autoFocus={true}
-            autoComplete="off"
-            value={driver.name}
-            placeholder="Name"
-            onChange={updateDriver(driver.id)}
-            onKeyPress={event => event.key === 'Enter' && addDriver()}
-          />
-          {driver.name && (
-            <div className="Registration__RemoveRow" onClick={() => removeDriver(driver.id)}>
-              <CloseIcon width={18} height={18} />
-            </div>
-          )}
-        </div>
-      ))}
-      <button className="Registration__Button" onClick={() => addDriver()}>Add Driver</button>
-      <button className="Registration__Button" onClick={() => start()}>Start Competition</button>
-    </div>
+    <>
+      <div className="Navigation">
+        <h2 className="Navigation__Title">Enter Drivers</h2>
+      </div>
+      <div className="Registration">
+        {drivers.map(driver => (
+          <div key={driver.id} className="Registration__Row">
+            <input
+              name="name"
+              type="text"
+              autoFocus={true}
+              autoComplete="off"
+              value={driver.name}
+              placeholder="Name"
+              onChange={updateDriver(driver.id)}
+              onKeyPress={event => event.key === 'Enter' && addDriver()}
+            />
+            {driver.name && (
+              <div className="Registration__RemoveRow" onClick={() => removeDriver(driver.id)}>
+                <CloseIcon width={18} height={18} />
+              </div>
+            )}
+          </div>
+        ))}
+        <button className="Registration__Button" onClick={() => addDriver()}>Add Driver</button>
+        <button className="Registration__Button" onClick={() => start()}>Start Competition</button>
+      </div>
+    </>
   )
 }
 

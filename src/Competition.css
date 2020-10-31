@@ -11,6 +11,14 @@
   align-items: center;
   justify-content: space-between;
   background-color: var(--midnight);
+  height: 64px;
+}
+
+.Navigation__Title {
+  color: var(--white);
+  font-size: 19px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .Navigation__Button {
@@ -25,7 +33,7 @@
   background-color: var(--midnight);
   color: var(--white);
   border: none;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
   outline: none;
   padding: 8px;
@@ -38,9 +46,7 @@
 }
 
 .Navigation__Course {
-  color: var(--white);
-  font-size: 14px;
-  text-align: center;
+  font-size: 13px;
   margin-top: -4px;
   margin-bottom: 8px;
 }
