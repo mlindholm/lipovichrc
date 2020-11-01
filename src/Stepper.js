@@ -3,11 +3,13 @@ import './Stepper.css'
 import { ReactComponent as AddIcon } from './images/add.svg'
 import { ReactComponent as RemoveIcon } from './images/remove.svg'
 
-const Stepper = ({ max }) => {
+const Stepper = ({max, driverId, ruleId, updateFunc}) => {
   const [value, setValue] = useState(0)
   const handleClick = (int, max) => {
-    if (value + int < 0 || value + int > max) return
-    setValue(value + int)
+    const newValue = value + int
+    if (newValue < 0 || newValue > max) return
+    setValue(newValue)
+    updateFunc(driverId, ruleId, newValue)
   }
 
   return (

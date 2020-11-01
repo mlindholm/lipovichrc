@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Competition.css'
 import Stepper from './Stepper'
 import { coursePoints } from './coursePoints'
@@ -6,7 +6,8 @@ import { ReactComponent as LeftIcon } from './images/chevron-left.svg'
 import { ReactComponent as RightIcon } from './images/chevron-right.svg'
 import { ReactComponent as HelpIcon } from './images/help.svg'
 
-function Competition({drivers, endFunc}) {
+function Competition({drivers, endFunc, updateFunc}) {
+  const [currentDriver, setCurrentDriver] = useState(drivers[0])
   return (
     <>
     <div className="Navigation">
@@ -21,15 +22,20 @@ function Competition({drivers, endFunc}) {
     </div>
     <div className="Competition">
       {coursePoints.map(item => (
-        <div key={item.name} className="CoursePoint">
-          <div>
-            <div className="CoursePoint__Name">{item.name}</div>
-            <div className="CoursePoint__Points">{item.points > 0 ? '+' + item.points : item.points}</div>
+          <div key={item.name} className="CoursePoint">
+            <div>
+              <div className="CoursePoint__Name">{item.name}</div>
+              <div className="CoursePoint__Points">{item.points > 0 ? '+' + item.points : item.points}</div>
+            </div>
+            <button className="CoursePoint__HelpButton" onClick={() => alert(item.description)}><HelpIcon width={20} height={20} /></button>
+            <Stepper
+              max={item.max}
+              updateFunc={updateFunc}
+              driverId={currentDriver.id}
+              ruleId={item.id}
+            />
           </div>
-          <button className="CoursePoint__HelpButton" onClick={() => alert(item.description)}><HelpIcon width={20} height={20} /></button>
-          <Stepper max={item.max} />
-        </div>
-      ))}
+        ))}
     </div>
     <div className="Footer">
       {/* <div className="Footer__ButtonContainer">

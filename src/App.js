@@ -20,6 +20,15 @@ function App() {
     setDrivers(filteredData)
   }
 
+  const updateDriverPoints = (driverId, ruleId, value) => {
+    //  const driver = drivers.find(v => v.id === driverId)
+     const newArray = drivers.map(driver =>
+      driver.id === driverId ? { ...driver, points: { ...driver.points, [ruleId]: value } } : driver
+    )
+    console.log(newArray)
+    setDrivers(newArray)
+  }
+
   const confirmEndCompetition = () => {
     if (window.confirm("End competition?")) {
       setCurrentState(AppStates.Finished)
@@ -35,10 +44,26 @@ function App() {
     setDrivers(undefined)
   }
 
-  if (isEmpty(drivers) && currentState === AppStates.Register) return <Registration startFunc={startCompetition} />
-  if (!isEmpty(drivers) && currentState === AppStates.Compete) return <Competition drivers={drivers} endFunc={confirmEndCompetition} />
-  if (!isEmpty(drivers) && currentState === AppStates.Finished) return <Finish undoEndFunc={undoEndCompetition} restartFunc={restartCompetition} />
+  if (isEmpty(drivers) && currentState === AppStates.Register) return (
+    <Registration
+      startFunc={startCompetition}
+    />
+  )
+  if (!isEmpty(drivers) && currentState === AppStates.Compete) return (
+    <Competition
+      drivers={drivers}
+      endFunc={confirmEndCompetition}
+      updateFunc={updateDriverPoints}
+    />
+  )
+  if (!isEmpty(drivers) && currentState === AppStates.Finished) return (
+    <Finish
+      drivers={drivers}
+      undoEndFunc={undoEndCompetition}
+      restartFunc={restartCompetition}
+    />
+  )
   return null
 }
 
-export default App;
+export default App

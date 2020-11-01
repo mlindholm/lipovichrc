@@ -37,6 +37,7 @@ body {
   background-color: var(--midnight);
   color: var(--gray-1);
   font-family: 'Inter', sans-serif;
+  font-weight: normal;
   line-height: 1.25;
   margin: 0;
   text-rendering: optimizeLegibility;
