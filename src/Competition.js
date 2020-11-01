@@ -11,13 +11,24 @@ import { ReactComponent as RemoveIcon } from './images/remove.svg'
 function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
 
   const currentDriver = drivers.find(driver => driver.current)
+  const currentIndex = drivers.findIndex(driver => driver.current)
 
-  const renderStepper = (id, max) => {
-    const value = currentDriver.points[id] || 0
+  const prevDriver = () => {
+    const index = currentIndex === 0 ? drivers.length : currentIndex
+    changeDriverFunc(drivers[index - 1].id)
+  }
+
+  const nextDriver = () => {
+    const index = currentIndex === drivers.length - 1 ? -1 : currentIndex
+    changeDriverFunc(drivers[index + 1].id)
+  }
+
+  const renderStepper = (ruleId, max) => {
+    const value = currentDriver.points[ruleId] || 0
     const handleClick = (int, max) => {
       const newValue = value + int
       if (newValue < 0 || newValue > max) return
-      updatePointsFunc(currentDriver.id, id, newValue)
+      updatePointsFunc(currentDriver.id, ruleId, newValue)
     }
 
     return (
@@ -32,14 +43,14 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
   return (
     <>
     <div className="Navigation">
-      <button className="Navigation__Button"><LeftIcon /></button>
+      <button className="Navigation__Button" onClick={prevDriver}><LeftIcon /></button>
       <div className="Navigation__Title">
         <select className="Navigation__DriverSelect" value={currentDriver.id} onChange={e=> changeDriverFunc(e.target.value)}>
           {drivers.map(driver => <option key={driver.id} value={driver.id}>{driver.name}</option>)}
         </select>
         {/* <div className="Navigation__Course">Course 1</div> */}
       </div>
-      <button className="Navigation__Button"><RightIcon /></button>
+      <button className="Navigation__Button" onClick={nextDriver}><RightIcon /></button>
     </div>
     <div className="Competition">
       {courseRules.map(rule => (
