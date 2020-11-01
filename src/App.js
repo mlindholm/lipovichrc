@@ -10,53 +10,63 @@ import { AppStates } from './Enums'
 const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Object.entries((obj || {})).length
 
 function App() {
-  const [currentState, setCurrentState] = useIdb('state', AppStates.Register)
+  const [appState, setAppState] = useIdb('state', AppStates.Register)
   const [drivers, setDrivers] = useIdb('drivers')
+  const [currentDriver, setCurrentDriver] = useIdb('currentDriver')
 
   const startCompetition = data => {
     if (isEmpty(data)) return
     const filteredData = data.filter(value => value.name !== '')
-    setCurrentState(AppStates.Compete)
     setDrivers(filteredData)
+    setCurrentDriver(filteredData[0])
+    setAppState(AppStates.Compete)
+  }
+
+  const changeCurrentDriver = (newDriverId) => {
+    const newDriver = drivers.find(driver => driver.id === Number(newDriverId))
+    setCurrentDriver(newDriver)
   }
 
   const updateDriverPoints = (driverId, ruleId, value) => {
-    //  const driver = drivers.find(v => v.id === driverId)
-     const newArray = drivers.map(driver =>
+    const newArray = drivers.map(driver =>
       driver.id === driverId ? { ...driver, points: { ...driver.points, [ruleId]: value } } : driver
     )
-    console.log(newArray)
+    const newDriver = newArray.find(driver => driver.id === driverId)
+    setCurrentDriver(newDriver)
     setDrivers(newArray)
   }
 
   const confirmEndCompetition = () => {
     if (window.confirm("End competition?")) {
-      setCurrentState(AppStates.Finished)
+      setAppState(AppStates.Finished)
     }
   }
 
   const undoEndCompetition = () => {
-    setCurrentState(AppStates.Compete)
+    setAppState(AppStates.Compete)
   }
 
   const restartCompetition = () => {
-    setCurrentState(AppStates.Register)
+    setAppState(AppStates.Register)
+    setCurrentDriver(undefined)
     setDrivers(undefined)
   }
 
-  if (isEmpty(drivers) && currentState === AppStates.Register) return (
+  if (isEmpty(drivers) && appState === AppStates.Register) return (
     <Registration
       startFunc={startCompetition}
     />
   )
-  if (!isEmpty(drivers) && currentState === AppStates.Compete) return (
+  if (!isEmpty(drivers) && appState === AppStates.Compete) return (
     <Competition
       drivers={drivers}
+      currentDriver={currentDriver}
+      changeDriverFunc={changeCurrentDriver}
+      updatePointsFunc={updateDriverPoints}
       endFunc={confirmEndCompetition}
-      updateFunc={updateDriverPoints}
     />
   )
-  if (!isEmpty(drivers) && currentState === AppStates.Finished) return (
+  if (!isEmpty(drivers) && appState === AppStates.Finished) return (
     <Finish
       drivers={drivers}
       undoEndFunc={undoEndCompetition}

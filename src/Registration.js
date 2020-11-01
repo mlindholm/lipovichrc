@@ -18,7 +18,7 @@ function Registration({startFunc}) {
   }
 
   const addDriver = () => {
-    const newArray = [...drivers, { id: count + 1, name: '' }]
+    const newArray = [...drivers, { id: count + 1, name: '', points: {}}]
     setDrivers(newArray)
     setCount(count + 1)
   }
