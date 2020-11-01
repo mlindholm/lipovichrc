@@ -19,7 +19,6 @@ function App() {
     setCurrentState(AppStates.Compete)
     setDrivers(filteredData)
   }
-  }
 
   const confirmEndCompetition = () => {
     if (window.confirm("End competition?")) {
