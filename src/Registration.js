@@ -2,13 +2,16 @@ import React, { useState } from 'react'
 import './Registration.css'
 import { ReactComponent as CloseIcon } from './images/close.svg'
 
+const driverObj = id => ({
+  id,
+  name: '',
+  points: {},
+  current: false
+})
+
 function Registration({startFunc}) {
   const [count, setCount] = useState(0)
-  const [drivers, setDrivers] = useState([{
-    id: count,
-    name: '',
-    points: {}
-  }])
+  const [drivers, setDrivers] = useState([driverObj(count)])
 
   const updateDriver = id => event => {
     const newArray = drivers.map(driver =>
@@ -18,7 +21,7 @@ function Registration({startFunc}) {
   }
 
   const addDriver = () => {
-    const newArray = [...drivers, { id: count + 1, name: '', points: {}}]
+    const newArray = [...drivers, driverObj(count + 1)]
     setDrivers(newArray)
     setCount(count + 1)
   }

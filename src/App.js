@@ -12,27 +12,28 @@ const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Obj
 function App() {
   const [appState, setAppState] = useIdb('state', AppStates.Register)
   const [drivers, setDrivers] = useIdb('drivers')
-  const [currentDriver, setCurrentDriver] = useIdb('currentDriver')
 
   const startCompetition = data => {
     if (isEmpty(data)) return
     const filteredData = data.filter(value => value.name !== '')
+    filteredData[0].current = true
     setDrivers(filteredData)
-    setCurrentDriver(filteredData[0])
     setAppState(AppStates.Compete)
   }
 
   const changeCurrentDriver = (newDriverId) => {
-    const newDriver = drivers.find(driver => driver.id === Number(newDriverId))
-    setCurrentDriver(newDriver)
+    const currentIndex = drivers.findIndex(driver => driver.current)
+    const newIndex = drivers.findIndex(driver => driver.id === Number(newDriverId))
+    const newArray = [...drivers]
+    newArray[currentIndex].current = false
+    newArray[newIndex].current = true
+    setDrivers(newArray)
   }
 
   const updateDriverPoints = (driverId, ruleId, value) => {
     const newArray = drivers.map(driver =>
       driver.id === driverId ? { ...driver, points: { ...driver.points, [ruleId]: value } } : driver
     )
-    const newDriver = newArray.find(driver => driver.id === driverId)
-    setCurrentDriver(newDriver)
     setDrivers(newArray)
   }
 
@@ -48,7 +49,6 @@ function App() {
 
   const restartCompetition = () => {
     setAppState(AppStates.Register)
-    setCurrentDriver(undefined)
     setDrivers(undefined)
   }
 
@@ -60,7 +60,6 @@ function App() {
   if (!isEmpty(drivers) && appState === AppStates.Compete) return (
     <Competition
       drivers={drivers}
-      currentDriver={currentDriver}
       changeDriverFunc={changeCurrentDriver}
       updatePointsFunc={updateDriverPoints}
       endFunc={confirmEndCompetition}

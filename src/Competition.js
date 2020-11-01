@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Competition.css'
 import './Stepper.css'
 import { courseRules } from './courseRules'
@@ -8,15 +8,12 @@ import { ReactComponent as HelpIcon } from './images/help.svg'
 import { ReactComponent as AddIcon } from './images/add.svg'
 import { ReactComponent as RemoveIcon } from './images/remove.svg'
 
-function Competition({drivers, currentDriver, endFunc, changeDriverFunc, updatePointsFunc}) {
+function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
 
-  const getRuleCount = id => {
-    if (!currentDriver || !currentDriver.points) return 0
-    return currentDriver.points[id] || 0
-  }
+  const currentDriver = drivers.find(driver => driver.current)
 
   const renderStepper = (id, max) => {
-    const value = getRuleCount(id)
+    const value = currentDriver.points[id] || 0
     const handleClick = (int, max) => {
       const newValue = value + int
       if (newValue < 0 || newValue > max) return
