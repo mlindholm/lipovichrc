@@ -1,4 +1,4 @@
-export const coursePoints = [
+export const courseRules = [
   {
     id: 1,
     name: 'Progress',

@@ -2,7 +2,7 @@
   padding: 80px 16px 0 16px;
 }
 
-.CoursePoint {
+.CourseRule {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -11,16 +11,16 @@
   border-bottom: 1px solid var(--gray-5);
 }
 
-.CoursePoint__Name {
+.CourseRule__Name {
   font-weight: 700;
 }
 
-.CoursePoint__Points {
+.CourseRule__Points {
   font-size: 14px;
   margin-top: 2px;
 }
 
-.CoursePoint__HelpButton {
+.CourseRule__HelpButton {
   fill: var(--gray-3);
   border-radius: 999px;
   margin-left: auto;

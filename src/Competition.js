@@ -1,19 +1,24 @@
 import React, { useState } from 'react'
 import './Competition.css'
 import Stepper from './Stepper'
-import { coursePoints } from './coursePoints'
+import { courseRules } from './courseRules'
 import { ReactComponent as LeftIcon } from './images/chevron-left.svg'
 import { ReactComponent as RightIcon } from './images/chevron-right.svg'
 import { ReactComponent as HelpIcon } from './images/help.svg'
 
 function Competition({drivers, endFunc, updateFunc}) {
   const [currentDriver, setCurrentDriver] = useState(drivers[0])
+  const handleDriverChange = event => {
+    const newDriver = drivers.find(driver => driver.id === Number(event.target.value))
+    setCurrentDriver(newDriver)
+  }
+
   return (
     <>
     <div className="Navigation">
       <button className="Navigation__Button"><LeftIcon /></button>
       <div className="Navigation__Title">
-        <select className="Navigation__DriverSelect">
+        <select className="Navigation__DriverSelect" value={currentDriver.id} onChange={handleDriverChange}>
           {drivers.map(driver => <option key={driver.id} value={driver.id}>{driver.name}</option>)}
         </select>
         {/* <div className="Navigation__Course">Course 1</div> */}
@@ -21,18 +26,19 @@ function Competition({drivers, endFunc, updateFunc}) {
       <button className="Navigation__Button"><RightIcon /></button>
     </div>
     <div className="Competition">
-      {coursePoints.map(item => (
-          <div key={item.name} className="CoursePoint">
+      {courseRules.map(rule => (
+          <div key={rule.name} className="CourseRule">
             <div>
-              <div className="CoursePoint__Name">{item.name}</div>
-              <div className="CoursePoint__Points">{item.points > 0 ? '+' + item.points : item.points}</div>
+              <div className="CourseRule__Name">{rule.name}</div>
+              <div className="CourseRule__Points">{rule.points > 0 && '+'}{rule.points}</div>
             </div>
-            <button className="CoursePoint__HelpButton" onClick={() => alert(item.description)}><HelpIcon width={20} height={20} /></button>
+            <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={20} height={20} /></button>
             <Stepper
-              max={item.max}
-              updateFunc={updateFunc}
+              value={currentDriver.points[rule.id] || 0}
+              maxValue={rule.max}
               driverId={currentDriver.id}
-              ruleId={item.id}
+              ruleId={rule.id}
+              updateFunc={updateFunc}
             />
           </div>
         ))}
