@@ -14,8 +14,8 @@ function App() {
   const [drivers, setDrivers] = useIdb('drivers')
 
   const startCompetition = data => {
-    if (isEmpty(data)) return
     const filteredData = data.filter(value => value.name !== '')
+    if (isEmpty(filteredData)) return
     filteredData[0].current = true
     setDrivers(filteredData)
     setAppState(AppStates.Compete)

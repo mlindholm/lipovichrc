@@ -1,8 +1,6 @@
 import React from 'react'
 import { courseRules } from './courseRules'
 
-const pointsForId = (arr, id) => arr.find(v => v.id === Number(id)).points
-
 function Finish({drivers, restartFunc, undoEndFunc}) {
   return (
     <>
@@ -28,7 +26,7 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
           </tbody>
         </table>
         <button onClick={restartFunc}>Restart</button>&ensp;
-        <button onClick={undoEndFunc}>Undo</button>
+        <button className="Footer__SecondaryButton" onClick={undoEndFunc}>Undo</button>
       </div>
     </>
   )
