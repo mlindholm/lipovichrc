@@ -15,7 +15,7 @@ function Competition({drivers, endFunc}) {
         <select className="Navigation__DriverSelect">
           {drivers.map(driver => <option key={driver.id} value={driver.id}>{driver.name}</option>)}
         </select>
-        <div className="Navigation__Course">Course 1</div>
+        {/* <div className="Navigation__Course">Course 1</div> */}
       </div>
       <button className="Navigation__Button"><RightIcon /></button>
     </div>
@@ -32,7 +32,7 @@ function Competition({drivers, endFunc}) {
       ))}
     </div>
     <div className="Footer">
-      <div className="Footer__ButtonContainer">
+      {/* <div className="Footer__ButtonContainer">
         <button className="Footer__Button">
           <LeftIcon width={21} height={21} />
           Prev. Course
@@ -41,7 +41,7 @@ function Competition({drivers, endFunc}) {
           Next Course
           <RightIcon width={21} height={21} />
           </button>
-      </div>
+      </div> */}
       <button className="Footer__SecondaryButton" onClick={endFunc}>End Competition</button>
     </div>
     </>

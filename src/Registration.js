@@ -32,7 +32,7 @@ function Registration({startFunc}) {
   return (
     <>
       <div className="Navigation">
-        <h2 className="Navigation__Title">Enter Drivers</h2>
+        <h2 className="Navigation__Title">Registration</h2>
       </div>
       <div className="Registration">
         {drivers.map(driver => (
@@ -43,7 +43,7 @@ function Registration({startFunc}) {
               autoFocus={true}
               autoComplete="off"
               value={driver.name}
-              placeholder="Name"
+              placeholder="Driver Name"
               onChange={updateDriver(driver.id)}
               onKeyPress={event => event.key === 'Enter' && addDriver()}
             />
