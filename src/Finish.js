@@ -10,13 +10,15 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
       <div className="Registration">
         <table>
           <thead>
-            <th></th>
-            {drivers.map(driver => <th>{driver.name}</th>)}
+            <tr>
+              <th/>
+              {drivers.map(driver => <th>{driver.name}</th>)}
+            </tr>
           </thead>
           <tbody>
             {courseRules.map(rule => (
               <tr>
-                <td>{rule.name}, {rule.points > 0 && '+'}{rule.points}</td>
+                <td>{rule.name} <small style={{color:'gray'}}>{rule.points > 0 && '+'}{rule.points}</small></td>
                 {drivers.map(driver => {
                   const points = driver.points[rule.id] * rule.points || 0
                   return <td>{points}</td>
@@ -24,6 +26,18 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
               </tr>
             ))}
           </tbody>
+          <tfoot>
+            <tr>
+              <td>Total</td>
+              {drivers.map(driver => {
+                const totalPoints = courseRules
+                .map(rule => driver.points[rule.id] * rule.points)
+                .filter(v => !isNaN(v))
+                .reduce((a, b) => a + b, 0)
+                return <td>{totalPoints}</td>
+              })}
+            </tr>
+          </tfoot>
         </table>
         <button onClick={restartFunc}>Restart</button>&ensp;
         <button className="Footer__SecondaryButton" onClick={undoEndFunc}>Undo</button>

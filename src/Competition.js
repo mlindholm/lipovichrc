@@ -40,6 +40,8 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
     )
   }
 
+  if (!currentDriver) return null
+
   return (
     <>
     <div className="Navigation">
