@@ -10,7 +10,7 @@ const driverObj = id => ({
 })
 
 function Registration({startFunc}) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(1)
   const [drivers, setDrivers] = useState([driverObj(count)])
 
   const updateDriver = id => event => {
