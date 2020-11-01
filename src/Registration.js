@@ -7,9 +7,9 @@ function Registration({startFunc}) {
   const [drivers, setDrivers] = useState([{ id: count, name: '' }])
 
   const updateDriver = id => event => {
-    const index = drivers.findIndex(driver => driver.id === id);
-    const newArray = [...drivers]
-    newArray[index] = { id, name: event.target.value }
+    const newArray = drivers.map(driver =>
+      driver.id === id ? { ...driver, name: event.target.value } : driver
+    )
     setDrivers(newArray)
   }
 
@@ -22,11 +22,6 @@ function Registration({startFunc}) {
   const removeDriver = id => {
     const newArray = [...drivers].filter(item => item.id !== id)
     setDrivers(newArray)
-  }
-
-  const start = () => {
-    var newArray = drivers.filter(value => value.name !== '')
-    startFunc(newArray)
   }
 
   return (
@@ -55,7 +50,7 @@ function Registration({startFunc}) {
           </div>
         ))}
         <button className="Registration__Button" onClick={() => addDriver()}>Add Driver</button>
-        <button className="Registration__Button" onClick={() => start()}>Start Competition</button>
+        <button className="Registration__Button" onClick={() => startFunc(drivers)}>Start Competition</button>
       </div>
     </>
   )

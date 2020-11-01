@@ -7,7 +7,7 @@ import Competition from './Competition'
 import Finish from './Finish'
 import { AppStates } from './Enums'
 
-const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Object.entries((obj || {})).length;
+const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Object.entries((obj || {})).length
 
 function App() {
   const [currentState, setCurrentState] = useIdb('state', AppStates.Register)
@@ -15,8 +15,10 @@ function App() {
 
   const startCompetition = data => {
     if (isEmpty(data)) return
+    const filteredData = data.filter(value => value.name !== '')
     setCurrentState(AppStates.Compete)
-    setDrivers(data)
+    setDrivers(filteredData)
+  }
   }
 
   const confirmEndCompetition = () => {
