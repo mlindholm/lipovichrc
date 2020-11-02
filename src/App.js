@@ -6,6 +6,7 @@ import Registration from './Registration'
 import Competition from './Competition'
 import Finish from './Finish'
 import { AppStates } from './Enums'
+import { courseRules } from './courseRules'
 
 const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Object.entries((obj || {})).length
 
@@ -39,7 +40,15 @@ function App() {
 
   const confirmEndCompetition = () => {
     if (window.confirm("End competition?")) {
+      const sortedDriversWithTotal = drivers.map(driver => {
+        const total = courseRules
+        .map(rule => driver.points[rule.id] * rule.points)
+        .filter(v => !isNaN(v))
+        .reduce((a, b) => a + b, 0)
+        return {...driver, total }
+      }).sort((a, b) => a.total - b.total)
       setAppState(AppStates.Finished)
+      setDrivers(sortedDriversWithTotal)
     }
   }
 
