@@ -34,7 +34,7 @@ html {
 }
 
 body {
-  background-color: var(--midnight);
+  background-color: var(--white);
   color: var(--gray-1);
   font-family: 'Inter', sans-serif;
   font-weight: normal;
@@ -47,10 +47,6 @@ body {
 
 *, *:before, *:after {
   box-sizing: inherit;
-}
-
-#root {
-  background-color: var(--white);
 }
 
 input {
