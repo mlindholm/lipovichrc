@@ -37,8 +37,8 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
             </tr>
           </tfoot>
         </table>
-        <button onClick={restartFunc}>Restart</button>&ensp;
-        <button className="Footer__SecondaryButton" onClick={undoEndFunc}>Undo</button>
+        <button onClick={restartFunc}>New Competition</button>&ensp;
+        <button className="Footer__SecondaryButton" onClick={undoEndFunc}>Return to Competition</button>
       </div>
     </>
   )

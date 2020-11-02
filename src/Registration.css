@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 64px);
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .Registration__Title {

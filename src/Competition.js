@@ -67,6 +67,7 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
             {renderStepper(rule.id, rule.max)}
           </div>
         ))}
+        <button className="Footer__SecondaryButton" onClick={endFunc}>End Competition</button>
     </div>
     <div className="Footer">
       {/* <div className="Footer__ButtonContainer">
@@ -79,7 +80,6 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
           <RightIcon width={21} height={21} />
           </button>
       </div> */}
-      <button className="Footer__SecondaryButton" onClick={endFunc}>End Competition</button>
     </div>
     </>
   )
