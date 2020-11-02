@@ -1,7 +1,7 @@
 {
   "short_name": "Lipovich",
-  "name": "Lipovich RC",
-  "description": "Simple RC crawling points calculator",
+  "name": "Lipovich",
+  "description": "Lipovich is an awesome app for scoring your RC crawling competitions on your phone. Get Lipovich today and spend more time driving.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -29,7 +29,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#12223a",
+  "theme_color": "#132238",
   "background_color": "#FFFFFF",
   "orientation": "portrait"
 }
