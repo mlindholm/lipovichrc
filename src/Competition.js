@@ -33,9 +33,9 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
 
     return (
       <div className="Stepper">
-        <button className="Stepper__Button" onClick={() => handleClick(-1)}><RemoveIcon width={20} height={20} /></button>
+        <button className="Stepper__Button" onClick={() => handleClick(-1)}><RemoveIcon width={18} height={18} /></button>
         <div className="Stepper__Input" type="number">{value}</div>
-        <button className="Stepper__Button" onClick={() => handleClick(1, max)}><AddIcon width={20} height={20} /></button>
+        <button className="Stepper__Button" onClick={() => handleClick(1, max)}><AddIcon width={18} height={18} /></button>
       </div>
     )
   }
@@ -59,9 +59,11 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
           <div key={rule.name} className="CourseRule">
             <div>
               <div className="CourseRule__Name">{rule.name}</div>
-              <div className="CourseRule__Points">{rule.points > 0 && '+'}{rule.points}</div>
+              <div className="CourseRule__Points">
+                {rule.points > 0 && '+'}{rule.points}
+                <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={17} height={17} /></button>
+              </div>
             </div>
-            <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={20} height={20} /></button>
             {renderStepper(rule.id, rule.max)}
           </div>
         ))}

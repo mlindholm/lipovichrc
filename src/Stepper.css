@@ -4,12 +4,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 40px;
+  height: 38px;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .Stepper__Button {
-  flex-shrink: 0;
   fill: var(--gray-1);
   border-radius: 0;
   line-height: 0;
@@ -28,6 +28,6 @@
 .Stepper__Input {
   border: none;
   font-size: 14px;
-  width: 48px;
+  width: 40px;
   text-align: center;
 }
