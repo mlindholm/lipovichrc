@@ -1,8 +1,8 @@
 .Registration {
-  padding: 80px 16px 0 16px;
+  padding: 80px 16px 16px 16px;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 64px);
+  width: 100%;
   max-width: 720px;
   margin: 0 auto;
 }
