@@ -99,24 +99,3 @@ button:focus, button:active {
 a {
   color: var(--orange-dark)
 }
-
-table {
-  border-collapse: collapse;
-  table-layout: fixed;
-  margin-bottom: 24px;
-}
-
-td, th {
-  padding: 4px;
-  text-align: left;
-  font-size: 14px;
-  min-width: 48px;
-}
-
-th {
-  font-size: 16px;
-}
-
-tfoot {
-  font-weight: 700;
-}

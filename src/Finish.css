@@ -1,0 +1,78 @@
+.Finish__Podium {
+  padding: 80px 16px 0 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.Podium__Entry {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 9px 12px;
+  margin-bottom: 8px;
+}
+
+.Podium__Medal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.Podium__Name {
+  margin-left: 10px;
+  font-weight: 700;
+}
+
+.Podium__Points {
+  margin-left: auto;
+  text-align: right;
+  font-size: 14px;
+}
+
+.Finish__TableContainer {
+  overflow: auto;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.Finish__Table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 16px 0;
+  padding-bottom: 8px;
+}
+
+.Finish__Table th,
+.Finish__Table td {
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.Finish__Table th:first-child,
+.Finish__Table td:first-child {
+  min-width: 200px;
+  padding-left: 16px;
+}
+
+.Finish__Table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.Finish__Footer {
+  padding: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.Finish__Button,
+.Finish__SecondaryButton {
+  width: 100%;
+}
+
+.Finish__SecondaryButton {
+  background-color: var(--gray-5);
+  color: var(--gray-1);
+  margin-top: 12px;
+}
