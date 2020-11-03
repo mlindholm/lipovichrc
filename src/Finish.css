@@ -20,7 +20,7 @@
 }
 
 .Podium__Name {
-  margin-left: 10px;
+  margin-left: 8px;
   font-weight: 700;
 }
 
@@ -41,7 +41,6 @@
   border-collapse: collapse;
   width: 100%;
   margin: 16px;
-  padding-bottom: 8px;
 }
 
 .Finish__Table th,
@@ -49,20 +48,22 @@
   padding: 7px 4px;
   text-align: left;
   font-size: 14px;
+  text-align: center;
 }
 
 .Finish__Table td {
   border-top: 1px solid var(--gray-5);
-  min-width: 40px;
+  min-width: 60px;
 }
 
 .Finish__Table th:first-child,
 .Finish__Table td:first-child {
-  min-width: 160px;
+  min-width: 180px;
+  text-align: left;
 }
 
 .Finish__Footer {
-  padding: 16px;
+  padding: 8px 16px 16px;
   max-width: 720px;
   margin: 0 auto;
 }

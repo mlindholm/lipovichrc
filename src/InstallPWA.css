@@ -28,6 +28,8 @@
 }
 
 .InstallPWA__Button {
+  background-color: var(--orange);
+  color: var(--white);
   margin-left: auto;
   padding: 6px 12px;
   font-size: 13px;

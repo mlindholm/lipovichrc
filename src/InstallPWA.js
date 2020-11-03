@@ -32,7 +32,7 @@ const InstallPWA = () => {
     )
   }
 
-  if (!supportsPWA) return null
+  // if (!supportsPWA) return null
 
   return (
     <div className="InstallPWA">

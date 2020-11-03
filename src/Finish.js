@@ -49,7 +49,7 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
             </tbody>
             <tfoot>
               <tr>
-                <td>Total</td>
+                <td><strong>Total</strong></td>
                 {drivers.map(driver => <td><strong>{driver.total}</strong></td>)}
               </tr>
             </tfoot>
