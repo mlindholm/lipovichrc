@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './InstallPWA.css'
 
 const InstallPWA = () => {
+  const [show, setShow] = useState(true)
   const [supportsPWA, setSupportsPWA] = useState(false)
   const [promptInstall, setPromptInstall] = useState(null)
 
@@ -11,18 +12,35 @@ const InstallPWA = () => {
       setSupportsPWA(true)
       setPromptInstall(e)
     }
+    const hideIfInstalled = () => {
+      if (navigator.standalone) {
+        setShow(false)
+      }
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        setShow(false)
+      }
+    }
     window.addEventListener('beforeinstallprompt', handler)
+    window.addEventListener('DOMContentLoaded', hideIfInstalled)
     return () => window.removeEventListener('transitionend', handler)
   }, [])
 
   const onClick = e => {
     e.preventDefault()
+    setShow(false)
     if (!promptInstall) return
     promptInstall.prompt()
+    promptInstall.userChoice.then(choice => {
+      if (choice.outcome === 'accepted') {
+        setShow(false)
+      } else {
+        setShow(true)
+      }
+    })
   }
 
   if (!supportsPWA) return null
-  return (
+  if (show) return (
     <div className="InstallPWA">
       <div className="InstallPWA__Content">
         <img className="InstallPWA__AppIcon" src="/logo-192.png" alt="App icon" />
@@ -34,6 +52,7 @@ const InstallPWA = () => {
       </div>
     </div>
   )
+  return null
 }
 
 export default InstallPWA
