@@ -28,7 +28,7 @@ const InstallPWA = () => {
     if (!promptInstall) return
     promptInstall.prompt()
     promptInstall.userChoice.then(choice =>
-      setSupportsPWA(choice.outcome === 'accepted')
+      setSupportsPWA(choice.outcome === 'dismissed')
     )
   }
 
