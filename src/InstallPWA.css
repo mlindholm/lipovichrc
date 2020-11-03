@@ -1,0 +1,35 @@
+.InstallPWA {
+  /* margin: -16px; */
+  margin-top: auto;
+  padding: 12px;
+  background: rgba(248,177,30,.2);
+}
+
+.InstallPWA__Content {
+  display: flex;
+  align-items: center;
+}
+
+.InstallPWA__AppIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.InstallPWA__Title {
+  font-size: 16px;
+  margin: 0;
+}
+
+.InstallPWA__Description {
+  color: rgba(0,0,0,.75);
+  font-size: 14px;
+  margin: 2px 0 0;
+}
+
+.InstallPWA__Button {
+  margin-left: auto;
+  padding: 6px 12px;
+  font-size: 13px;
+}

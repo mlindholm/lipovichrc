@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './Registration.css'
 import { ReactComponent as CloseIcon } from './images/close.svg'
+import InstallPWA from './InstallPWA'
 
 const driverObj = id => ({
   id,
@@ -59,6 +60,7 @@ function Registration({startFunc}) {
         <button className="Registration__Button" onClick={() => addDriver()}>Add Driver</button>
         <button className="Registration__Button" onClick={() => startFunc(drivers)}>Start Competition</button>
       </div>
+      <InstallPWA />
     </>
   )
 }
