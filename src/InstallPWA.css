@@ -1,5 +1,4 @@
 .InstallPWA {
-  /* margin: -16px; */
   margin-top: auto;
   padding: 12px;
   background: rgba(248,177,30,.2);
@@ -18,13 +17,13 @@
 }
 
 .InstallPWA__Title {
-  font-size: 16px;
-  margin: 0;
+  font-size: 15px;
+  margin: 0 8px 0 0;
 }
 
 .InstallPWA__Description {
   color: rgba(0,0,0,.75);
-  font-size: 14px;
+  font-size: 13px;
   margin: 2px 0 0;
 }
 
@@ -32,4 +31,23 @@
   margin-left: auto;
   padding: 6px 12px;
   font-size: 13px;
+}
+
+@media (min-width: 720px) {
+  .InstallPWA {
+    max-width: 720px;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .InstallPWA__Title {
+    font-size: 16px;
+  }
+
+  .InstallPWA__Description {
+    font-size: 14px;
+  }
 }
