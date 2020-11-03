@@ -1,12 +1,12 @@
 import React from 'react'
 import { useIdb } from 'react-use-idb'
-import './App.css'
-import './Navigation.css'
 import Registration from './Registration'
 import Competition from './Competition'
 import Finish from './Finish'
 import { AppStates } from './Enums'
 import { courseRules } from './courseRules'
+import './App.css'
+import './Navigation.css'
 
 const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Object.entries((obj || {})).length
 

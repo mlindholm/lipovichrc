@@ -25,6 +25,22 @@
 }
 
 .Registration__Button {
+  background-color: var(--orange);
+  color: var(--white);
   width: 100%;
   margin-bottom: 10px;
+}
+
+.Registration__Input {
+  border-radius: 4px;
+  border: 1px solid var(--gray-4);
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 24px;
+  padding: 9px;
+  width: 100%;
+}
+
+.Registration__Input::placeholder {
+  color: var(--gray-3);
 }

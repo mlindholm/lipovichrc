@@ -1,5 +1,5 @@
 .Competition {
-  padding: 80px 16px 0 16px;
+  padding: 80px 16px 16px 16px;
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
@@ -33,31 +33,8 @@
   line-height: 0;
 }
 
-.Footer {
-  padding: 0 16px 16px;
-  text-align: center;
-}
-
-.Footer__ButtonContainer {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.Footer__Button {
-  flex-basis: 48%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  fill: var(--white);
-}
-
-.Footer__SecondaryButton {
+.Competition__SecondaryButton {
   background-color: var(--gray-5);
   color: var(--gray-1);
   width: 100%;
-}
-
-.Footer a {
-  font-size: 14px;
 }

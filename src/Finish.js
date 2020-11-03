@@ -1,6 +1,6 @@
 import React from 'react'
-import './Finish.css'
 import { courseRules } from './courseRules'
+import './Finish.css'
 
 
 function Finish({drivers, restartFunc, undoEndFunc}) {

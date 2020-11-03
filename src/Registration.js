@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import './Registration.css'
-import { ReactComponent as CloseIcon } from './images/close.svg'
 import InstallPWA from './InstallPWA'
+import { ReactComponent as CloseIcon } from './images/close.svg'
+import './Registration.css'
 
 const driverObj = id => ({
   id,
@@ -43,6 +43,7 @@ function Registration({startFunc}) {
             <input
               name="name"
               type="text"
+              className="Registration__Input"
               autoFocus={true}
               autoComplete="off"
               value={driver.name}

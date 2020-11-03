@@ -37,27 +37,28 @@
 }
 
 .Finish__Table {
+  display: inline-table;
   border-collapse: collapse;
   width: 100%;
-  margin: 16px 0;
+  margin: 16px;
   padding-bottom: 8px;
 }
 
 .Finish__Table th,
 .Finish__Table td {
-  padding: 6px 8px;
+  padding: 7px 4px;
   text-align: left;
   font-size: 14px;
 }
 
-.Finish__Table th:first-child,
-.Finish__Table td:first-child {
-  min-width: 200px;
-  padding-left: 16px;
+.Finish__Table td {
+  border-top: 1px solid var(--gray-5);
+  min-width: 40px;
 }
 
-.Finish__Table tr:nth-child(even) {
-  background-color: #f5f5f5;
+.Finish__Table th:first-child,
+.Finish__Table td:first-child {
+  min-width: 160px;
 }
 
 .Finish__Footer {
@@ -66,8 +67,9 @@
   margin: 0 auto;
 }
 
-.Finish__Button,
-.Finish__SecondaryButton {
+.Finish__Button {
+  background-color: var(--orange);
+  color: var(--white);
   width: 100%;
 }
 
@@ -75,4 +77,5 @@
   background-color: var(--gray-5);
   color: var(--gray-1);
   margin-top: 12px;
+  width: 100%;
 }

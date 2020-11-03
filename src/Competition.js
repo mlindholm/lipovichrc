@@ -1,12 +1,12 @@
 import React from 'react'
-import './Competition.css'
-import './Stepper.css'
 import { courseRules } from './courseRules'
 import { ReactComponent as LeftIcon } from './images/chevron-left.svg'
 import { ReactComponent as RightIcon } from './images/chevron-right.svg'
 import { ReactComponent as HelpIcon } from './images/help.svg'
 import { ReactComponent as AddIcon } from './images/add.svg'
 import { ReactComponent as RemoveIcon } from './images/remove.svg'
+import './Competition.css'
+import './Stepper.css'
 
 function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
 
@@ -50,7 +50,6 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
         <select className="Navigation__DriverSelect" value={currentDriver.id} onChange={e=> changeDriverFunc(e.target.value)}>
           {drivers.map(driver => <option key={driver.id} value={driver.id}>{driver.name}</option>)}
         </select>
-        {/* <div className="Navigation__Course">Course 1</div> */}
       </div>
       <button className="Navigation__Button" onClick={nextDriver}><RightIcon /></button>
     </div>
@@ -67,19 +66,7 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
             {renderStepper(rule.id, rule.max)}
           </div>
         ))}
-        <button className="Footer__SecondaryButton" onClick={endFunc}>End Competition</button>
-    </div>
-    <div className="Footer">
-      {/* <div className="Footer__ButtonContainer">
-        <button className="Footer__Button">
-          <LeftIcon width={21} height={21} />
-          Prev. Course
-        </button>
-        <button className="Footer__Button">
-          Next Course
-          <RightIcon width={21} height={21} />
-          </button>
-      </div> */}
+        <button className="Competition__SecondaryButton" onClick={endFunc}>End Competition</button>
     </div>
     </>
   )
