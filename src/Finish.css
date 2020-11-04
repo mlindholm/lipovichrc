@@ -37,9 +37,10 @@
 }
 
 .Finish__Table {
+  table-layout: fixed;
   display: inline-table;
   border-collapse: collapse;
-  width: 100%;
+  flex-grow: 1;
   margin: 16px;
 }
 
@@ -53,13 +54,12 @@
 
 .Finish__Table td {
   border-top: 1px solid var(--gray-5);
-  min-width: 60px;
 }
 
 .Finish__Table th:first-child,
 .Finish__Table td:first-child {
-  min-width: 180px;
   text-align: left;
+  min-width: 160px;
 }
 
 .Finish__Footer {
