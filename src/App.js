@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useIdb } from 'react-use-idb'
 import Registration from './Registration'
 import Competition from './Competition'
@@ -13,6 +13,10 @@ const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Obj
 function App() {
   const [appState, setAppState] = useIdb('state', AppStates.Register)
   const [drivers, setDrivers] = useIdb('drivers')
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [appState])
 
   const startCompetition = data => {
     const filteredData = data.filter(value => value.name !== '')

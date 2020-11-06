@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { courseRules } from './courseRules'
 import { ReactComponent as LeftIcon } from './images/chevron-left.svg'
 import { ReactComponent as RightIcon } from './images/chevron-right.svg'
@@ -9,7 +9,6 @@ import './Competition.css'
 import './Stepper.css'
 
 function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
-
   const currentDriver = drivers.find(driver => driver.current)
   const currentIndex = drivers.findIndex(driver => driver.current)
 
@@ -39,8 +38,6 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
       </div>
     )
   }
-
-  if (!currentDriver) return null
 
   return (
     <>
