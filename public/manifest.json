@@ -1,7 +1,7 @@
 {
   "short_name": "Lipovich",
-  "name": "Lipovich",
-  "description": "Lipovich is an awesome app for scoring your RC crawling competitions on your phone. Get Lipovich today and spend more time driving.",
+  "name": "Lipovich - RC Crawling Comp Scoring",
+  "description": "Lipovich is a handy tool for scoring rc crawling comps on your phone",
   "icons": [
     {
       "src": "favicon.ico",
