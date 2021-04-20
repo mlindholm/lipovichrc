@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Navigation from '../navigation/Navigation'
+import Button from '../button/Button'
 import { ReactComponent as CloseIcon } from '../images/close.svg'
 import './Registration.css'
-import Button from '../button/Button'
 
 const driverObj = id => ({
   id,

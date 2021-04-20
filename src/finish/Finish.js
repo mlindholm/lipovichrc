@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useHistory } from "react-router-dom";
-import Button from '../button/Button';
 import Navigation from '../navigation/Navigation'
+import Button from '../button/Button';
 import { courseRules } from '../utils/courseRules'
 import './Finish.css'
 
