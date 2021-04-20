@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { courseRules } from './courseRules'
 import { ReactComponent as LeftIcon } from './images/chevron-left.svg'
 import { ReactComponent as RightIcon } from './images/chevron-right.svg'
