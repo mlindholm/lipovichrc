@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useIdb } from 'react-use-idb'
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import Registration from './registration/Registration'
 import Competition from './competition/Competition'
 import Finish from './finish/Finish'
+import ScrollToTop from './utils/ScrollToTop'
 import { courseRules } from './utils/courseRules'
 import './App.css'
 
@@ -11,10 +12,6 @@ const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Obj
 
 function App() {
   const [drivers, setDrivers] = useIdb('drivers')
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
   const startCompetition = data => {
     const filteredData = data.filter(value => value.name !== '')
@@ -50,16 +47,13 @@ function App() {
     setDrivers(sortedDriversWithTotal)
   }
 
-  const undoEndCompetition = () => {
-    console.log('is this needed?')
-  }
-
   const restartCompetition = () => {
     setDrivers(undefined)
   }
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Switch>
         <Route path="/register">
           <Registration startFunc={startCompetition} />
@@ -75,7 +69,6 @@ function App() {
         <Route path="/finish">
           <Finish
             drivers={drivers}
-            undoEndFunc={undoEndCompetition}
             restartFunc={restartCompetition}
           />
         </Route>

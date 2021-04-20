@@ -6,7 +6,7 @@ import { courseRules } from '../utils/courseRules'
 import './Finish.css'
 
 
-function Finish({drivers, restartFunc, undoEndFunc}) {
+function Finish({drivers, restartFunc}) {
   const history = useHistory()
   const medals = [
     {icon: '🏆', color: '#ffec99'},
@@ -28,13 +28,13 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
         <div className="Finish__Podium">
           {drivers.slice(0,3).map((driver, i) => (
             <div className="Podium__Entry" style={{backgroundColor: medals[i].color}}>
-              <div class="Podium__Medal">
+              <div className="Podium__Medal">
                 {medals[i].icon}
               </div>
-              <div class="Podium__Name">
+              <div className="Podium__Name">
                 {driver.name}
               </div>
-              <div class="Podium__Points">
+              <div className="Podium__Points">
                 {driver.total} points
               </div>
             </div>
@@ -65,7 +65,7 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
           </table>
         </div>
         <div className="Finish__Footer">
-          <Button linkTo="/compete" onClick={undoEndFunc} color="secondary">Return to Competition</Button>
+          <Button linkTo="/compete" color="secondary">Return to Competition</Button>
           <Button onClick={confirmRestart} color="primary">New Competition</Button>
         </div>
       </div>
