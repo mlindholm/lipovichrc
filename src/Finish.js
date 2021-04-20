@@ -1,5 +1,6 @@
 import React from 'react'
-import { courseRules } from './courseRules'
+import Navigation from './navigation/Navigation'
+import { courseRules } from './utils/courseRules'
 import './Finish.css'
 
 
@@ -12,9 +13,7 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
 
   return (
     <>
-      <div className="Navigation">
-        <h2 className="Navigation__Title">Finished</h2>
-      </div>
+      <Navigation title="Finished" />
       <div className="Finish">
         <div className="Finish__Podium">
           {drivers.slice(0,3).map((driver, i) => (

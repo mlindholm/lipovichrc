@@ -30,8 +30,7 @@
   box-shadow: inset 0 0 0 100px rgba(255, 255, 255, .1);
 }
 
-
-.Navigation__DriverSelect {
+.Navigation__Select {
   background-color: var(--midnight);
   color: var(--white);
   border: none;

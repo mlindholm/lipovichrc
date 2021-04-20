@@ -1,7 +1,6 @@
 import React from 'react'
-import { courseRules } from './courseRules'
-import { ReactComponent as LeftIcon } from './images/chevron-left.svg'
-import { ReactComponent as RightIcon } from './images/chevron-right.svg'
+import Navigation from './navigation/Navigation'
+import { courseRules } from './utils/courseRules'
 import { ReactComponent as HelpIcon } from './images/help.svg'
 import { ReactComponent as AddIcon } from './images/add.svg'
 import { ReactComponent as RemoveIcon } from './images/remove.svg'
@@ -41,15 +40,15 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
 
   return (
     <>
-    <div className="Navigation">
-      <button className="Navigation__Button" onClick={prevDriver}><LeftIcon /></button>
-      <div className="Navigation__Title">
-        <select className="Navigation__DriverSelect" value={currentDriver.id} onChange={e=> changeDriverFunc(e.target.value)}>
+    <Navigation
+      title={(
+        <select className="Navigation__Select" value={currentDriver.id} onChange={e=> changeDriverFunc(e.target.value)}>
           {drivers.map(driver => <option key={driver.id} value={driver.id}>{driver.name}</option>)}
         </select>
-      </div>
-      <button className="Navigation__Button" onClick={nextDriver}><RightIcon /></button>
-    </div>
+      )}
+      leftOnClick={prevDriver}
+      rightOnClick={nextDriver}
+    />
     <div className="Competition">
       {courseRules.map(rule => (
           <div key={rule.name} className="CourseRule">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import InstallPWA from './InstallPWA'
+import Navigation from './navigation/Navigation'
 import { ReactComponent as CloseIcon } from './images/close.svg'
 import './Registration.css'
 
@@ -34,9 +35,7 @@ function Registration({startFunc}) {
 
   return (
     <>
-      <div className="Navigation">
-        <h2 className="Navigation__Title">Registration</h2>
-      </div>
+      <Navigation title="Registration" />
       <div className="Registration">
         {drivers.map(driver => (
           <div key={driver.id} className="Registration__Row">
