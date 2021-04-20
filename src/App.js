@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import Registration from './registration/Registration'
 import Competition from './competition/Competition'
 import Finish from './finish/Finish'
+import InstallPWA from './pwa/InstallPWA'
 import ScrollToTop from './utils/ScrollToTop'
 import { courseRules } from './utils/courseRules'
 import './App.css'
@@ -57,6 +58,7 @@ function App() {
       <Switch>
         <Route path="/register">
           <Registration startFunc={startCompetition} />
+          <InstallPWA />
         </Route>
         <Route path="/compete">
           <Competition

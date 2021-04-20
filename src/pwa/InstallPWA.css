@@ -27,12 +27,13 @@
   margin: 2px 0 0;
 }
 
-.InstallPWA__Button {
+.InstallPWA .Button {
   background-color: var(--orange);
   color: var(--white);
   margin-left: auto;
   padding: 6px 12px;
   font-size: 13px;
+  width: auto;
 }
 
 @media (min-width: 720px) {

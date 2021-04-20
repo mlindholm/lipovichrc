@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Button from '../button/Button'
 import './InstallPWA.css'
 
 const InstallPWA = () => {
@@ -42,7 +43,7 @@ const InstallPWA = () => {
           <h3 className="InstallPWA__Title">{isMobile ? 'Add to Home screen' : 'Install app'}</h3>
           <p className="InstallPWA__Description">Lipovich</p>
         </div>
-        <button className="InstallPWA__Button" onClick={onClick}>{isMobile ? 'Add' : 'Install'}</button>
+        <Button onClick={onClick} color="primary">{isMobile ? 'Add' : 'Install'}</Button>
       </div>
     </div>
   )

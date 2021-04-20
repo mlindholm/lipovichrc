@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Navigation from '../navigation/Navigation'
-import InstallPWA from '../pwa/InstallPWA'
 import { ReactComponent as CloseIcon } from '../images/close.svg'
 import './Registration.css'
 import Button from '../button/Button'
@@ -61,7 +60,6 @@ function Registration({startFunc}) {
         <Button onClick={() => addDriver()} color="primary">Add Driver</Button>
         <Button linkTo="/compete" onClick={() => startFunc(drivers)} color="primary">Start Competition</Button>
       </div>
-      <InstallPWA />
     </>
   )
 }
