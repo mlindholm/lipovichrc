@@ -1,11 +1,10 @@
 import React from 'react'
-import Navigation from './navigation/Navigation'
-import { courseRules } from './utils/courseRules'
-import { ReactComponent as HelpIcon } from './images/help.svg'
-import { ReactComponent as AddIcon } from './images/add.svg'
-import { ReactComponent as RemoveIcon } from './images/remove.svg'
+import Navigation from '../navigation/Navigation'
+import { courseRules } from '../utils/courseRules'
+import { ReactComponent as HelpIcon } from '../images/help.svg'
+import { ReactComponent as AddIcon } from '../images/add.svg'
+import { ReactComponent as RemoveIcon } from '../images/remove.svg'
 import './Competition.css'
-import './Stepper.css'
 
 function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
   const currentDriver = drivers.find(driver => driver.current)

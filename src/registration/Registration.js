@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import InstallPWA from './InstallPWA'
-import Navigation from './navigation/Navigation'
-import { ReactComponent as CloseIcon } from './images/close.svg'
+import Navigation from '../navigation/Navigation'
+import InstallPWA from '../pwa/InstallPWA'
+import { ReactComponent as CloseIcon } from '../images/close.svg'
 import './Registration.css'
 
 const driverObj = id => ({

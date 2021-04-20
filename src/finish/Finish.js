@@ -1,6 +1,6 @@
 import React from 'react'
-import Navigation from './navigation/Navigation'
-import { courseRules } from './utils/courseRules'
+import Navigation from '../navigation/Navigation'
+import { courseRules } from '../utils/courseRules'
 import './Finish.css'
 
 
