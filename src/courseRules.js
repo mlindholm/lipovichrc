@@ -14,7 +14,7 @@ export const courseRules = [
   {
     id: 3,
     name: 'Gate Marker',
-    points: 5,
+    points: 10,
     description: 'Gate Marker: (+10 pts each) Each gate will be comprised of 2 gate markers. Points are given when all wheels do not travel between gate markers or any part of the vehicle, a tow strap or winch line touches a gate marker. A gate marker will remain "live" for the entire duration of the attempt on the course. Once any gate marker has been touched or straddled, no more penalties will be given for that gate marker. Only when a gate penalty is assessed will that gate marker be deemed "dead". No further penalties will be assessed at this point for that gate marker. There will no longer be a penalty for stepping on a gate (for safety reasons) but please stay off course as much as possible and limit course damage.'
   },
   {
