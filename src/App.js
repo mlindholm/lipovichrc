@@ -4,29 +4,26 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import Registration from './registration/Registration'
 import Competition from './competition/Competition'
 import Finish from './finish/Finish'
-import { AppStates } from './utils/Enums'
 import { courseRules } from './utils/courseRules'
 import './App.css'
 
 const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Object.entries((obj || {})).length
 
 function App() {
-  const [appState, setAppState] = useIdb('state', AppStates.Register)
   const [drivers, setDrivers] = useIdb('drivers')
 
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [appState])
+  }, [])
 
   const startCompetition = data => {
     const filteredData = data.filter(value => value.name !== '')
     if (isEmpty(filteredData)) return
     filteredData[0].current = true
     setDrivers(filteredData)
-    setAppState(AppStates.Compete)
   }
 
-  const changeCurrentDriver = (newDriverId) => {
+  const changeCurrentDriver = newDriverId => {
     const currentIndex = drivers.findIndex(driver => driver.current)
     const newIndex = drivers.findIndex(driver => driver.id === Number(newDriverId))
     const newArray = [...drivers]
@@ -50,16 +47,14 @@ function App() {
       .reduce((a, b) => a + b, 0)
       return {...driver, total }
     }).sort((a, b) => a.total - b.total)
-    setAppState(AppStates.Finished)
     setDrivers(sortedDriversWithTotal)
   }
 
   const undoEndCompetition = () => {
-    setAppState(AppStates.Compete)
+    console.log('is this needed?')
   }
 
   const restartCompetition = () => {
-    setAppState(AppStates.Register)
     setDrivers(undefined)
   }
 

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useHistory } from "react-router-dom";
 import Button from '../button/Button';
 import Navigation from '../navigation/Navigation'
 import { courseRules } from '../utils/courseRules'
@@ -6,11 +7,19 @@ import './Finish.css'
 
 
 function Finish({drivers, restartFunc, undoEndFunc}) {
+  const history = useHistory()
   const medals = [
     {icon: '🏆', color: '#ffec99'},
     {icon: '🥈', color: '#e9ecef'},
     {icon: '🥉', color: '#f0ddd1'},
   ]
+
+  const confirmRestart = useCallback(() => {
+    if (window.confirm('Start new competition?')) {
+      restartFunc()
+      history.push('/register')
+    }
+  }, [restartFunc, history])
 
   return (
     <>
@@ -35,7 +44,7 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
           <table className="Finish__Table">
             <thead>
               <tr>
-                <th>Brakedown</th>
+                <th>Breakdown</th>
                 {drivers.map(driver => <th>{driver.name}</th>)}
               </tr>
             </thead>
@@ -56,8 +65,8 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
           </table>
         </div>
         <div className="Finish__Footer">
-          <Button linkTo="/register" onClick={restartFunc} color="primary">New Competition</Button>
           <Button linkTo="/compete" onClick={undoEndFunc} color="secondary">Return to Competition</Button>
+          <Button onClick={confirmRestart} color="primary">New Competition</Button>
         </div>
       </div>
     </>
