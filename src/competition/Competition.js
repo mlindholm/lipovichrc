@@ -60,18 +60,21 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
     />
     <div className="Competition">
       {courseRules.map(rule => (
-          <div key={rule.name} className="CourseRule">
-            <div>
-              <div className="CourseRule__Name">{rule.name}</div>
-              <div className="CourseRule__Points">
-                {rule.points > 0 && '+'}{rule.points}
-                <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={17} height={17} /></button>
-              </div>
+        <div key={rule.name} className="CourseRule">
+          <div>
+            <div className="CourseRule__Name">{rule.name}</div>
+            <div className="CourseRule__Points">
+              {rule.points > 0 && '+'}{rule.points}
+              <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={17} height={17} /></button>
             </div>
-            {renderStepper(rule.id, rule.max)}
           </div>
-        ))}
-        <Button onClick={confirmEndCompetition} color="secondary">End Competition</Button>
+          {renderStepper(rule.id, rule.max)}
+        </div>
+      ))}
+    </div>
+    <div className="Competition__Footer">
+      <Button onClick={confirmEndCompetition} color="secondary">End Competition</Button>
+      <a className="Button Button--secondary" target="_blank" href="http://www.sorrca.com/rules/2021coursepoints.pdf" rel="noopener noreferrer" >SORRCA Course Points</a>
     </div>
     </>
   )

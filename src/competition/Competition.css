@@ -1,8 +1,19 @@
 .Competition {
-  padding: 80px 16px 16px 16px;
+  padding: 16px 16px 0;
+  width: 100%;
+  max-width: 720px;
+  margin: var(--nav-height) auto 0;
+}
+
+.Competition__Footer {
+  padding: 0 16px 8px;
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
+}
+
+.Competition__Footer .Button {
+  margin: 8px 0;
 }
 
 .CourseRule {

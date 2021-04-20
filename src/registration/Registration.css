@@ -1,16 +1,16 @@
 .Registration {
-  padding: 80px 16px 16px 16px;
+  padding: 8px 16px;
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 720px;
-  margin: 0 auto;
+  margin: var(--nav-height) auto 0;
 }
 
 .Registration__Row {
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  margin: 8px 0;
   position: relative;
 }
 
@@ -39,5 +39,5 @@
 }
 
 .Registration .Button {
-  margin-bottom: 12px;
+  margin: 8px 0;
 }
