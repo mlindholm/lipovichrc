@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
 import Navigation from '../navigation/Navigation'
 import { courseRules } from '../utils/courseRules'
 import { ReactComponent as HelpIcon } from '../images/help.svg'
 import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
 import './Competition.css'
+import Button from '../button/Button'
 
 function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
+  const history = useHistory()
   const currentDriver = drivers.find(driver => driver.current)
   const currentIndex = drivers.findIndex(driver => driver.current)
 
@@ -37,6 +40,13 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
     )
   }
 
+  const confirmEndCompetition = useCallback(() => {
+    if (window.confirm("End competition?")) {
+      endFunc()
+      history.push('/finish')
+    }
+  }, [endFunc, history])
+
   return (
     <>
     <Navigation
@@ -61,7 +71,7 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
             {renderStepper(rule.id, rule.max)}
           </div>
         ))}
-        <button className="Competition__SecondaryButton" onClick={endFunc}>End Competition</button>
+        <Button onClick={confirmEndCompetition} color="secondary">End Competition</Button>
     </div>
     </>
   )

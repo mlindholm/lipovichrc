@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useIdb } from 'react-use-idb'
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import Registration from './registration/Registration'
 import Competition from './competition/Competition'
 import Finish from './finish/Finish'
@@ -41,18 +42,16 @@ function App() {
     setDrivers(newArray)
   }
 
-  const confirmEndCompetition = () => {
-    if (window.confirm("End competition?")) {
-      const sortedDriversWithTotal = drivers.map(driver => {
-        const total = courseRules
-        .map(rule => driver.points[rule.id] * rule.points)
-        .filter(v => !isNaN(v))
-        .reduce((a, b) => a + b, 0)
-        return {...driver, total }
-      }).sort((a, b) => a.total - b.total)
-      setAppState(AppStates.Finished)
-      setDrivers(sortedDriversWithTotal)
-    }
+  const endCompetition = () => {
+    const sortedDriversWithTotal = drivers.map(driver => {
+      const total = courseRules
+      .map(rule => driver.points[rule.id] * rule.points)
+      .filter(v => !isNaN(v))
+      .reduce((a, b) => a + b, 0)
+      return {...driver, total }
+    }).sort((a, b) => a.total - b.total)
+    setAppState(AppStates.Finished)
+    setDrivers(sortedDriversWithTotal)
   }
 
   const undoEndCompetition = () => {
@@ -64,27 +63,33 @@ function App() {
     setDrivers(undefined)
   }
 
-  if (isEmpty(drivers) && appState === AppStates.Register) return (
-    <Registration
-      startFunc={startCompetition}
-    />
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/register">
+          <Registration startFunc={startCompetition} />
+        </Route>
+        <Route path="/compete">
+          <Competition
+            drivers={drivers}
+            changeDriverFunc={changeCurrentDriver}
+            updatePointsFunc={updateDriverPoints}
+            endFunc={endCompetition}
+          />
+        </Route>
+        <Route path="/finish">
+          <Finish
+            drivers={drivers}
+            undoEndFunc={undoEndCompetition}
+            restartFunc={restartCompetition}
+          />
+        </Route>
+        <Route exact path="/">
+          <Redirect to="/register" />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   )
-  if (!isEmpty(drivers) && appState === AppStates.Compete) return (
-    <Competition
-      drivers={drivers}
-      changeDriverFunc={changeCurrentDriver}
-      updatePointsFunc={updateDriverPoints}
-      endFunc={confirmEndCompetition}
-    />
-  )
-  if (!isEmpty(drivers) && appState === AppStates.Finished) return (
-    <Finish
-      drivers={drivers}
-      undoEndFunc={undoEndCompetition}
-      restartFunc={restartCompetition}
-    />
-  )
-  return null
 }
 
 export default App

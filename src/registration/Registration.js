@@ -3,6 +3,7 @@ import Navigation from '../navigation/Navigation'
 import InstallPWA from '../pwa/InstallPWA'
 import { ReactComponent as CloseIcon } from '../images/close.svg'
 import './Registration.css'
+import Button from '../button/Button'
 
 const driverObj = id => ({
   id,
@@ -57,8 +58,8 @@ function Registration({startFunc}) {
             )}
           </div>
         ))}
-        <button className="Registration__Button" onClick={() => addDriver()}>Add Driver</button>
-        <button className="Registration__Button" onClick={() => startFunc(drivers)}>Start Competition</button>
+        <Button onClick={() => addDriver()} color="primary">Add Driver</Button>
+        <Button linkTo="/compete" onClick={() => startFunc(drivers)} color="primary">Start Competition</Button>
       </div>
       <InstallPWA />
     </>

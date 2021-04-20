@@ -63,20 +63,11 @@
 }
 
 .Finish__Footer {
-  padding: 8px 16px 16px;
+  padding: 0 16px 10px;
   max-width: 720px;
   margin: 0 auto;
 }
 
-.Finish__Button {
-  background-color: var(--orange);
-  color: var(--white);
-  width: 100%;
-}
-
-.Finish__SecondaryButton {
-  background-color: var(--gray-5);
-  color: var(--gray-1);
-  margin-top: 12px;
-  width: 100%;
+.Finish__Footer .Button {
+  margin: 6px 0;
 }

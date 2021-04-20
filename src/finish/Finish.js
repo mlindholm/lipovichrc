@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../button/Button';
 import Navigation from '../navigation/Navigation'
 import { courseRules } from '../utils/courseRules'
 import './Finish.css'
@@ -55,8 +56,8 @@ function Finish({drivers, restartFunc, undoEndFunc}) {
           </table>
         </div>
         <div className="Finish__Footer">
-          <button className="Finish__Button" onClick={restartFunc}>New Competition</button>
-          <button className="Finish__SecondaryButton" onClick={undoEndFunc}>Return to Competition</button>
+          <Button linkTo="/register" onClick={restartFunc} color="primary">New Competition</Button>
+          <Button linkTo="/compete" onClick={undoEndFunc} color="secondary">Return to Competition</Button>
         </div>
       </div>
     </>

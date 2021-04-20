@@ -33,10 +33,8 @@
   line-height: 0;
 }
 
-.Competition__SecondaryButton {
-  background-color: var(--gray-5);
-  color: var(--gray-1);
-  width: 100%;
+.CourseRule__HelpButton:active {
+  box-shadow: inset 0 0 0 100px rgba(0, 0, 0, .1);
 }
 
 .Stepper {
@@ -55,6 +53,10 @@
   border-radius: 0;
   line-height: 0;
   padding: 9px;
+}
+
+.Stepper__Button:active {
+  box-shadow: inset 0 0 0 100px rgba(0, 0, 0, .1);
 }
 
 .Stepper__Button:first-child {
