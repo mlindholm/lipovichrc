@@ -13,64 +13,39 @@ export const courseRules = [
   },
   {
     id: 3,
-    name: 'Gate Marker',
-    points: 10,
-    description: 'Gate Marker: (+10 pts each) Each gate will be comprised of 2 gate markers. Points are given when all wheels do not travel between gate markers or any part of the vehicle, a tow strap or winch line touches a gate marker. A gate marker will remain "live" for the entire duration of the attempt on the course. Once any gate marker has been touched or straddled, no more penalties will be given for that gate marker. Only when a gate penalty is assessed will that gate marker be deemed "dead". No further penalties will be assessed at this point for that gate marker. There will no longer be a penalty for stepping on a gate (for safety reasons) but please stay off course as much as possible and limit course damage.'
-  },
-  {
-    id: 4,
     name: 'Rollover',
     points: 5,
     description: 'Rollover: (+5 pts) Points are given when a vehicle rolls over and cannot be corrected without touching. Once the vehicle has stopped it may be rolled back onto its wheels and a +5 point penalty shall be given. Vehicles that land back on their wheels without assistance are not penalized. No reverse penalties will be awarded until the vehicle is righted. The vehicle may at no time be lifted, slid or moved in any way other than a smooth, continuous roll to the left or right side only. Any other manipulation or movement of the vehicle will be considered a "vehicle touch" penalty.'
   },
   {
-    id: 5,
-    name: 'Boundary Marker',
-    points: 10,
-    description: 'Boundary Marker: (+10 pts each) Points are given when any part of the vehicle touches a boundary marker. Once a boundary marker is touched the judge then will stop time, and the vehicle is then moved back by the driver to the previously cleared gate with the rear axle aligned to that gate. If the vehicle cannot be aligned to the gate due to course design, the judge will reposition the vehicle to the next stable location after the cleared gate. This location will be used for all drivers. A boundary marker will remain "live" for the entire duration of the attempt on the course, and should be replaced if moved. Boundary markers are not required in the design of a course.'
-  },
-  {
-    id: 6,
-    name: 'Vehicle Touch (Repair & Repositions)',
-    points: 10,
-    description: 'Vehicle Touch: (+10 pts) All vehicle touches excluding “rollovers”, "winching", "assisted recoveries" (see associated rules), intentional or unintentional, are given an automatic +10 points. The judge then will stop time when either the driver calls for a vehicle touch or the judge calls a driver touch. The vehicle is then moved back by the driver to the previously cleared gate with the rear axle aligned to that gate. If the vehicle cannot be aligned to the gate due to course design, the judge will reposition the vehicle to the next stable location after the cleared gate. This location will be used for all drivers. Note: All gates for progress are still “live” unless a gate has already been deemed “dead”. Vehicle touches include but are not limited to: repairs, repositions, vehicle driving/falling into the driver. \n\n On-Course Repairs: (+10pts) Must be completed on course and in the spot of which the driver decided to take the repair. Repairs must be made within the course time, while the course timer will continue to run. If repairs are made within the course time, the driver must return to the last previous gate cleared. If repairs cannot be made within the course time, the driver is given a DNF minus progress points for that course. There are no restrictions on whom or how the repairs are made. \n\n Off-Course Repairs: (+10pts) A driver can call time to make an off-course repair. Repairs should be completed within 30 minutes, or the driver is given a DNF minus progress points. If the repair is made in the allotted time, the driver must return to the last previous gate cleared. A 1 minute time penalty will be subtracted from the time that is left on that course, the timer will continue once the vehicle makes forward progress. \n\n Reposition: (+10 pts) The vehicle will be placed with its rear tires in the last gate progressed or the nearest stable location after the last cleared gate if the last gate cleared is unstable.'
-  },
-  {
-    id: 7,
-    name: 'Course Direction',
-    points: 10,
-    description: 'Course Direction: (+10 pts) Gates must be cleared in their intended direction and sequence. Any part of the vehicle entering an non-cleared gate in the wrong direction, or driven through out of sequence will result in a +10 point penalty. The judge will stop time. The vehicle is then moved back to the previously cleared gate (see reposition rule). Once the gate is cleared and awarded progress it can be traveled in any sequence or direction. '
-  },
-  {
-    id: 8,
+    id: 4,
     name: 'Self Recovery',
     points: 3,
     description: 'Self-Recovery: (+3 pts each) A self-recovery penalty will be assessed every time the vehicles winch cable is connected/reconnected, or self-recovery tools are positioned/repositioned. If at any time during the process of removing recovery tools and/or winch line from vehicle, the vehicle is moved by any force other than it’s winch or its own power, a touch penalty will be assessed and the vehicle repositioned to the last cleared gate (see vehicle touch rule). All self-recovery tools (sand ladders, etc.) must be carried on the vehicle.'
   },
   {
-    id: 9,
-    name: 'Assisted Recovery',
+    id: 5,
+    name: 'Gate, Touch, Reposition, Repair',
     points: 10,
-    description: 'Assisted Recovery: (+10 pts) At any time during the course, a driver may call for an assisted recovery. With the clock running, another vehicle will be brought onto the course to pull or winch the stranded vehicle to safety. The stranded vehicle shall not be pulled beyond the original position of the rescuing vehicle or it will result in another assisted recovery penalty. Use of a “retractable winch” will count as an assisted recovery.'
+    description: 'Gate Marker: (+10 pts each) Each gate will be comprised of 2 gate markers. Points are given when all wheels do not travel between gate markers or any part of the vehicle, a tow strap or winch line touches a gate marker. A gate marker will remain "live" for the entire duration of the attempt on the course. Once any gate marker has been touched or straddled, no more penalties will be given for that gate marker. Only when a gate penalty is assessed will that gate marker be deemed "dead". No further penalties will be assessed at this point for that gate marker. There will no longer be a penalty for stepping on a gate (for safety reasons) but please stay off course as much as possible and limit course damage. \n\nVehicle Touch: (+10 pts) All vehicle touches excluding “rollovers”, "winching", "assisted recoveries" (see associated rules), intentional or unintentional, are given an automatic +10 points. The judge then will stop time when either the driver calls for a vehicle touch or the judge calls a driver touch. The vehicle is then moved back by the driver to the previously cleared gate with the rear axle aligned to that gate. If the vehicle cannot be aligned to the gate due to course design, the judge will reposition the vehicle to the next stable location after the cleared gate. This location will be used for all drivers. Note: All gates for progress are still “live” unless a gate has already been deemed “dead”. Vehicle touches include but are not limited to: repairs, repositions, vehicle driving/falling into the driver. \n\nOn-Course Repairs: (+10pts) Must be completed on course and in the spot of which the driver decided to take the repair. Repairs must be made within the course time, while the course timer will continue to run. If repairs are made within the course time, the driver must return to the last previous gate cleared. If repairs cannot be made within the course time, the driver is given a DNF minus progress points for that course. There are no restrictions on whom or how the repairs are made. \n\nOff-Course Repairs: (+10pts) A driver can call time to make an off-course repair. Repairs should be completed within 30 minutes, or the driver is given a DNF minus progress points. If the repair is made in the allotted time, the driver must return to the last previous gate cleared. A 1 minute time penalty will be subtracted from the time that is left on that course, the timer will continue once the vehicle makes forward progress. \n\nReposition: (+10 pts) The vehicle will be placed with its rear tires in the last gate progressed or the nearest stable location after the last cleared gate if the last gate cleared is unstable.'
   },
   {
-    id: 10,
-    name: 'Point out',
-    points: 80,
-    description: 'Point out: (+80) If a driver accrues 80 penalty points on a course they will receive a DNF (Did not finish). ',
-    max: 1
+    id: 6,
+    name: 'Boundaries, Assisted Recovery, Course Direction',
+    points: 10,
+    description: 'Boundary Marker: (+10 pts each) Points are given when any part of the vehicle touches a boundary marker. Once a boundary marker is touched the judge then will stop time, and the vehicle is then moved back by the driver to the previously cleared gate with the rear axle aligned to that gate. If the vehicle cannot be aligned to the gate due to course design, the judge will reposition the vehicle to the next stable location after the cleared gate. This location will be used for all drivers. A boundary marker will remain "live" for the entire duration of the attempt on the course, and should be replaced if moved. Boundary markers are not required in the design of a course. \n\nAssisted Recovery: (+10 pts) At any time during the course, a driver may call for an assisted recovery. With the clock running, another vehicle will be brought onto the course to pull or winch the stranded vehicle to safety. The stranded vehicle shall not be pulled beyond the original position of the rescuing vehicle or it will result in another assisted recovery penalty. Use of a “retractable winch” will count as an assisted recovery. \n\nCourse Direction: (+10 pts) Gates must be cleared in their intended direction and sequence. Any part of the vehicle entering an non-cleared gate in the wrong direction, or driven through out of sequence will result in a +10 point penalty. The judge will stop time. The vehicle is then moved back to the previously cleared gate (see reposition rule). Once the gate is cleared and awarded progress it can be traveled in any sequence or direction.'
   },
   {
-    id: 11,
+    id: 7,
     name: 'Did not finish',
-    points: 20,
+    points: 80 + 20,
     description: 'DNF (Did Not Finish): (point out +20 pts) given anytime a driver cannot complete a course. Progress then Scale points are awarded after. (80 + 20 - progress - scale points.)',
     max: 1
   },
   {
-    id: 12,
+    id: 8,
     name: 'Did not start',
-    points: 50,
+    points: 80 + 50,
     description: 'DNS (Did Not Start): (point out +50 pts) given anytime a driver cannot start a course for any reason. Vehicle must start course under its own power. No scale points will be awarded to this course. (80 + 50 with no progress or scale points.)',
     max: 1
   },

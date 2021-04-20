@@ -65,7 +65,9 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
             <div className="CourseRule__Name">{rule.name}</div>
             <div className="CourseRule__Points">
               {rule.points > 0 && '+'}{rule.points}
-              <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={17} height={17} /></button>
+              {rule.description && (
+                <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={17} height={17} /></button>
+              )}
             </div>
           </div>
           {renderStepper(rule.id, rule.max)}
