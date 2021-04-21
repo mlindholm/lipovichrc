@@ -1,13 +1,6 @@
-import { courseRules } from "./rules"
+import { courseRules } from './rules'
 
 export const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Object.entries((obj || {})).length
-
-export const prepareDrivers = data => {
-  const filteredDrivers = data.filter(value => value.name !== '')
-  if (isEmpty(filteredDrivers)) return
-  filteredDrivers[0].current = true
-  return filteredDrivers
-}
 
 export const changeDriver = (drivers, newDriverId) => {
   const currentIndex = drivers.findIndex(driver => driver.current)

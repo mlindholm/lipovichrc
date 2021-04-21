@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useIdb } from 'react-use-idb'
+import { useHistory } from 'react-router-dom'
 import Navigation from '../navigation/Navigation'
 import Button from '../button/Button'
-import { prepareDrivers } from '../utils/actions'
+import { isEmpty } from '../utils/actions'
 import { ReactComponent as CloseIcon } from '../images/close.svg'
 import './Registration.css'
 
@@ -14,6 +15,7 @@ const driverObj = id => ({
 })
 
 function Registration({startFunc}) {
+  const history = useHistory()
   const [, setDrivers] = useIdb('drivers')
   const [localDrivers, setLocalDrivers] = useState([driverObj(1)])
 
@@ -35,8 +37,11 @@ function Registration({startFunc}) {
   }
 
   const startCompetition = () => {
-    const finalDrivers = prepareDrivers(localDrivers)
-    setDrivers(finalDrivers)
+    const filteredDrivers = localDrivers.filter(driver => driver.name !== '')
+    if (isEmpty(filteredDrivers)) return null
+    filteredDrivers[0].current = true
+    setDrivers(filteredDrivers)
+    history.push('/compete')
   }
 
   return (
@@ -64,7 +69,7 @@ function Registration({startFunc}) {
           </div>
         ))}
         <Button onClick={() => addDriver()} color="primary">Add Driver</Button>
-        <Button linkTo="/compete" onClick={startCompetition} color="primary">Start Competition</Button>
+        <Button onClick={startCompetition} color="primary">Start Competition</Button>
       </div>
     </>
   )
