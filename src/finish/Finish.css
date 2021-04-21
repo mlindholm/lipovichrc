@@ -31,9 +31,10 @@
 }
 
 .Finish__TableContainer {
-  overflow: auto;
+  display: flex;
   max-width: 720px;
   margin: 0 auto;
+  padding: 16px;
 }
 
 .Finish__Table {
@@ -41,7 +42,6 @@
   display: inline-table;
   border-collapse: collapse;
   flex-grow: 1;
-  margin: 16px;
 }
 
 .Finish__Table th,
