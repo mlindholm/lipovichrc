@@ -1,25 +1,31 @@
-import React, { useCallback } from 'react'
+import React from 'react'
+import { useIdb } from 'react-use-idb'
 import { useHistory } from "react-router-dom";
 import Navigation from '../navigation/Navigation'
 import Button from '../button/Button';
-import { courseRules } from '../utils/courseRules'
+import { isEmpty } from '../utils/actions'
+import { courseRules } from '../utils/rules'
 import './Finish.css'
 
 
-function Finish({drivers, restartFunc}) {
+function Finish({restartFunc}) {
   const history = useHistory()
+  const [drivers, setDrivers] = useIdb('drivers')
+
   const medals = [
     {icon: '🏆', color: '#ffec99'},
     {icon: '🥈', color: '#e9ecef'},
     {icon: '🥉', color: '#f0ddd1'},
   ]
 
-  const confirmRestart = useCallback(() => {
+  const confirmRestart = () => {
     if (window.confirm('Start new competition?')) {
-      restartFunc()
+      setDrivers(undefined)
       history.push('/register')
     }
-  }, [restartFunc, history])
+  }
+
+  if (isEmpty(drivers)) return null
 
   return (
     <>

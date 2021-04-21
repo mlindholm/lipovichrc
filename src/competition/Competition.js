@@ -1,26 +1,50 @@
-import React, { useCallback } from 'react'
+import React from 'react'
+import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
 import Navigation from '../navigation/Navigation'
 import Button from '../button/Button'
-import { courseRules } from '../utils/courseRules'
+import { courseRules } from '../utils/rules'
+import { isEmpty, changeDriver, updatePoints, calculatePoints } from '../utils/actions'
 import { ReactComponent as HelpIcon } from '../images/help.svg'
 import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
 import './Competition.css'
 
-function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
+function Competition() {
   const history = useHistory()
+  const [drivers, setDrivers] = useIdb('drivers')
+
+  if (isEmpty(drivers)) return null
+
   const currentDriver = drivers.find(driver => driver.current)
   const currentIndex = drivers.findIndex(driver => driver.current)
 
+  const setCurrentDriver = id => {
+    const newDriver = changeDriver(drivers, id)
+    setDrivers(newDriver)
+  }
+
+  const setDriverPoints = (driverId, ruleId, value) => {
+    const updatedDriver = updatePoints(drivers, driverId, ruleId, value)
+    setDrivers(updatedDriver)
+  }
+
   const prevDriver = () => {
     const index = currentIndex === 0 ? drivers.length : currentIndex
-    changeDriverFunc(drivers[index - 1].id)
+    setCurrentDriver(drivers[index - 1].id)
   }
 
   const nextDriver = () => {
     const index = currentIndex === drivers.length - 1 ? -1 : currentIndex
-    changeDriverFunc(drivers[index + 1].id)
+    setCurrentDriver(drivers[index + 1].id)
+  }
+
+  const confirmEndCompetition = () => {
+    if (window.confirm("End competition?")) {
+      const scoredDrivers = calculatePoints(drivers)
+      setDrivers(scoredDrivers)
+      history.push('/finish')
+    }
   }
 
   const renderStepper = (ruleId, max) => {
@@ -28,7 +52,7 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
     const handleClick = (int, max) => {
       const newValue = value + int
       if (newValue < 0 || newValue > max) return
-      updatePointsFunc(currentDriver.id, ruleId, newValue)
+      setDriverPoints(currentDriver.id, ruleId, newValue)
     }
 
     return (
@@ -40,18 +64,11 @@ function Competition({drivers, endFunc, changeDriverFunc, updatePointsFunc}) {
     )
   }
 
-  const confirmEndCompetition = useCallback(() => {
-    if (window.confirm("End competition?")) {
-      endFunc()
-      history.push('/finish')
-    }
-  }, [endFunc, history])
-
   return (
     <>
     <Navigation
       title={(
-        <select className="Navigation__Select" value={currentDriver.id} onChange={e=> changeDriverFunc(e.target.value)}>
+        <select className="Navigation__Select" value={currentDriver.id} onChange={e=> setCurrentDriver(e.target.value)}>
           {drivers.map(driver => <option key={driver.id} value={driver.id}>{driver.name}</option>)}
         </select>
       )}
