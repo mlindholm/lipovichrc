@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Registration from './registration/Registration'
 import Competition from './competition/Competition'
 import Finish from './finish/Finish'

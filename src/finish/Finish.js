@@ -1,8 +1,8 @@
 import React from 'react'
 import { useIdb } from 'react-use-idb'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 import Navigation from '../navigation/Navigation'
-import Button from '../button/Button';
+import Button from '../button/Button'
 import { isEmpty } from '../utils/actions'
 import { courseRules } from '../utils/rules'
 import './Finish.css'
@@ -71,8 +71,9 @@ function Finish({restartFunc}) {
           </table>
         </div>
         <div className="Finish__Footer">
-          <Button linkTo="/compete" color="secondary">Return to Competition</Button>
           <Button onClick={confirmRestart} color="primary">New Competition</Button>
+          <Button linkTo="/compete" color="secondary">Return to Competition</Button>
+          <a className="Button Button--secondary" target="_blank" href="http://www.sorrca.com/rules/2021coursepoints.pdf" rel="noopener noreferrer" >SORRCA Course Points</a>
         </div>
       </div>
     </>
