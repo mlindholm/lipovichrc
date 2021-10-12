@@ -11,6 +11,7 @@ const driverObj = id => ({
   id,
   name: '',
   points: {},
+  elapsedTime: 0
 })
 
 function Registration({startFunc}) {
@@ -45,7 +46,7 @@ function Registration({startFunc}) {
 
   return (
     <>
-      <Navigation title={`${currentDriverId !== undefined ? 'Edit' : 'Register'} Drivers`} />
+      <Navigation title={`${currentDriverId ? 'Edit' : 'Register'} Drivers`} />
       <div className="Registration">
         {drivers.map(driver => (
           <div key={driver.id} className="Registration__Row">
@@ -68,7 +69,7 @@ function Registration({startFunc}) {
           </div>
         ))}
         <Button onClick={() => addDriver()} color="primary">Add Driver</Button>
-        <Button onClick={startCompetition} color="primary">{currentDriverId !== undefined ? 'Resume' : 'Start'} Competition</Button>
+        <Button onClick={startCompetition} color="primary">{currentDriverId ? 'Resume' : 'Start'} Competition</Button>
       </div>
     </>
   )

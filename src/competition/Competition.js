@@ -9,11 +9,13 @@ import { ReactComponent as HelpIcon } from '../images/help.svg'
 import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
 import './Competition.css'
+import { useTimer } from '../utils/useTimer'
 
 function Competition() {
   const history = useHistory()
   const [drivers, setDrivers] = useIdb('drivers')
   const [currentDriverId, setCurrentDriverId] = useIdb('current-driver-id', 0)
+  const { isRunning, elapsedTime, startTimer, stopTimer, setElapsedTime} = useTimer()
 
   if (isEmpty(drivers)) return null
 
@@ -29,14 +31,26 @@ function Competition() {
     setDrivers(newArray)
   }
 
+  const setDriverTime = () => {
+    stopTimer()
+    const newArray = drivers.map(driver =>
+      driver.id === currentDriverId ? { ...driver, elapsedTime } : driver
+    )
+    setDrivers(newArray)
+  }
+
   const setPrevDriver = () => {
+    setDriverTime()
     const prevDriver = drivers.at(getCurrentDriver().index - 1)
     setCurrentDriverId(prevDriver.id)
+    setElapsedTime(prevDriver.elapsedTime)
   }
 
   const setNextDriver = () => {
+    setDriverTime()
     const nextDriver = drivers.at(getCurrentDriver().index + 1) || drivers.at(0)
     setCurrentDriverId(nextDriver.id)
+    setElapsedTime(nextDriver.elapsedTime)
   }
 
   const confirmEndCompetition = () => {
@@ -45,7 +59,7 @@ function Competition() {
     }
   }
 
-  const renderStepper = (ruleId, max, callbackFn) => {
+  const renderStepper = (ruleId, max) => {
     const value = getCurrentDriver().points[ruleId] || 0
     const handleClick = (int, max) => {
       const newValue = value + int
@@ -65,11 +79,8 @@ function Competition() {
   return (
     <>
     <Navigation
-      title={(
-        <select className="Navigation__Select" value={currentDriverId} onChange={e => setCurrentDriverId(Number(e.target.value))}>
-          {drivers.map(driver => <option key={driver.id} value={driver.id}>{driver.name}</option>)}
-        </select>
-      )}
+      title={getCurrentDriver().name}
+      subtitle={elapsedTime.toFixed(1)}
       leftOnClick={setPrevDriver}
       rightOnClick={setNextDriver}
     />
@@ -90,6 +101,7 @@ function Competition() {
       ))}
     </div>
     <div className="Competition__Footer">
+      <Button onClick={() => isRunning ? stopTimer() : startTimer()} color="secondary">{isRunning ? 'Stop' : 'Start'} timer</Button>
       <Button onClick={confirmEndCompetition} color="secondary">End Competition</Button>
       <Button linkTo="/register" color="secondary">Edit Drivers</Button>
     </div>
