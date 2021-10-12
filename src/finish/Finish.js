@@ -36,7 +36,7 @@ function Finish({restartFunc}) {
       <div className="Finish">
         <div className="Finish__Podium">
           {drivers
-            .sort((a, b) => calculateTotal(a.points) < calculateTotal(b.points))
+            .sort((a, b) => calculateTotal(a.points) - calculateTotal(b.points))
             .slice(0,3)
             .map((driver, i) => (
               <div className={`Podium__Entry Podium__Entry--${medals[i].suffix}`} style={{backgroundColor: medals[i].color}}>
