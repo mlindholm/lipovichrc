@@ -3,7 +3,7 @@ import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
 import Navigation from '../navigation/Navigation'
 import Button from '../button/Button'
-import { isEmpty } from '../utils/actions'
+import { calculateTotal, isEmpty } from '../utils/actions'
 import { courseRules } from '../utils/rules'
 import './Finish.css'
 
@@ -11,16 +11,18 @@ import './Finish.css'
 function Finish({restartFunc}) {
   const history = useHistory()
   const [drivers, setDrivers] = useIdb('drivers')
+  const [, setCurrentDriverId] = useIdb('current-driver-id')
 
   const medals = [
-    {icon: '🏆', color: '#ffec99'},
-    {icon: '🥈', color: '#e9ecef'},
-    {icon: '🥉', color: '#f0ddd1'},
+    {icon: '🥇', suffix: 'first'},
+    {icon: '🥈', suffix: 'second'},
+    {icon: '🥉', suffix: 'third'},
   ]
 
   const confirmRestart = () => {
     if (window.confirm('Start new competition?')) {
       setDrivers(undefined)
+      setCurrentDriverId(undefined)
       history.push('/register')
     }
   }
@@ -32,19 +34,23 @@ function Finish({restartFunc}) {
       <Navigation title="Finished" />
       <div className="Finish">
         <div className="Finish__Podium">
-          {drivers.slice(0,3).map((driver, i) => (
-            <div className="Podium__Entry" style={{backgroundColor: medals[i].color}}>
-              <div className="Podium__Medal">
-                {medals[i].icon}
+          {drivers
+            .sort((a, b) => calculateTotal(a.points) < calculateTotal(b.points))
+            .slice(0,3)
+            .map((driver, i) => (
+              <div className={`Podium__Entry Podium__Entry--${medals[i].suffix}`} style={{backgroundColor: medals[i].color}}>
+                <div className="Podium__Medal">
+                  {medals[i].icon}
+                </div>
+                <div className="Podium__Name">
+                  {driver.name}
+                </div>
+                <div className="Podium__Points">
+                  {calculateTotal(driver.points)} points
+                </div>
               </div>
-              <div className="Podium__Name">
-                {driver.name}
-              </div>
-              <div className="Podium__Points">
-                {driver.total} points
-              </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
         <div className="Finish__TableContainer">
           <table className="Finish__Table">
@@ -57,7 +63,7 @@ function Finish({restartFunc}) {
             <tbody>
               {courseRules.map(rule => (
                 <tr>
-                  <td>{rule.name} <small style={{color:'gray'}}>{rule.points > 0 && '+'}{rule.points}</small></td>
+                  <td>{rule.name} <small style={{color:'gray'}}>{rule.points}</small></td>
                   {drivers.map(driver => <td>{driver.points[rule.id] * rule.points || 0}</td>)}
                 </tr>
               ))}
@@ -65,7 +71,7 @@ function Finish({restartFunc}) {
             <tfoot>
               <tr>
                 <td><strong>Total</strong></td>
-                {drivers.map(driver => <td><strong>{driver.total}</strong></td>)}
+                {drivers.map(driver => <td><strong>{calculateTotal(driver.points)}</strong></td>)}
               </tr>
             </tfoot>
           </table>
@@ -73,7 +79,6 @@ function Finish({restartFunc}) {
         <div className="Finish__Footer">
           <Button onClick={confirmRestart} color="primary">New Competition</Button>
           <Button linkTo="/compete" color="secondary">Return to Competition</Button>
-          <a className="Button Button--secondary" target="_blank" href="http://www.sorrca.com/rules/2021coursepoints.pdf" rel="noopener noreferrer" >SORRCA Course Points</a>
         </div>
       </div>
     </>

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import Navigation from '../navigation/Navigation'
 import Button from '../button/Button'
 import { courseRules } from '../utils/rules'
-import { isEmpty, changeDriver, updatePoints, calculatePoints } from '../utils/actions'
+import { isEmpty } from '../utils/actions'
 import { ReactComponent as HelpIcon } from '../images/help.svg'
 import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
@@ -13,46 +13,44 @@ import './Competition.css'
 function Competition() {
   const history = useHistory()
   const [drivers, setDrivers] = useIdb('drivers')
+  const [currentDriverId, setCurrentDriverId] = useIdb('current-driver-id', 0)
 
   if (isEmpty(drivers)) return null
 
-  const currentDriver = drivers.find(driver => driver.current)
-  const currentIndex = drivers.findIndex(driver => driver.current)
-
-  const setCurrentDriver = id => {
-    const newDriver = changeDriver(drivers, id)
-    setDrivers(newDriver)
+  const getCurrentDriver = () => {
+    const index = drivers.findIndex(driver => driver.id === currentDriverId)
+    return {...drivers[index], index}
   }
 
-  const setDriverPoints = (driverId, ruleId, value) => {
-    const updatedDriver = updatePoints(drivers, driverId, ruleId, value)
-    setDrivers(updatedDriver)
+  const setDriverPoints = (ruleId, value) => {
+    const newArray = drivers.map(driver =>
+      driver.id === currentDriverId ? { ...driver, points: { ...driver.points, [ruleId]: value } } : driver
+    )
+    setDrivers(newArray)
   }
 
-  const prevDriver = () => {
-    const index = currentIndex === 0 ? drivers.length : currentIndex
-    setCurrentDriver(drivers[index - 1].id)
+  const setPrevDriver = () => {
+    const prevDriver = drivers.at(getCurrentDriver().index - 1)
+    setCurrentDriverId(prevDriver.id)
   }
 
-  const nextDriver = () => {
-    const index = currentIndex === drivers.length - 1 ? -1 : currentIndex
-    setCurrentDriver(drivers[index + 1].id)
+  const setNextDriver = () => {
+    const nextDriver = drivers.at(getCurrentDriver().index + 1) || drivers.at(0)
+    setCurrentDriverId(nextDriver.id)
   }
 
   const confirmEndCompetition = () => {
     if (window.confirm("End competition?")) {
-      const scoredDrivers = calculatePoints(drivers)
-      setDrivers(scoredDrivers)
       history.push('/finish')
     }
   }
 
-  const renderStepper = (ruleId, max) => {
-    const value = currentDriver.points[ruleId] || 0
+  const renderStepper = (ruleId, max, callbackFn) => {
+    const value = getCurrentDriver().points[ruleId] || 0
     const handleClick = (int, max) => {
       const newValue = value + int
       if (newValue < 0 || newValue > max) return
-      setDriverPoints(currentDriver.id, ruleId, newValue)
+      setDriverPoints(ruleId, newValue)
     }
 
     return (
@@ -68,12 +66,12 @@ function Competition() {
     <>
     <Navigation
       title={(
-        <select className="Navigation__Select" value={currentDriver.id} onChange={e=> setCurrentDriver(e.target.value)}>
+        <select className="Navigation__Select" value={currentDriverId} onChange={e => setCurrentDriverId(Number(e.target.value))}>
           {drivers.map(driver => <option key={driver.id} value={driver.id}>{driver.name}</option>)}
         </select>
       )}
-      leftOnClick={prevDriver}
-      rightOnClick={nextDriver}
+      leftOnClick={setPrevDriver}
+      rightOnClick={setNextDriver}
     />
     <div className="Competition">
       {courseRules.map(rule => (
@@ -93,7 +91,6 @@ function Competition() {
     </div>
     <div className="Competition__Footer">
       <Button onClick={confirmEndCompetition} color="secondary">End Competition</Button>
-      <a className="Button Button--secondary" target="_blank" href="http://www.sorrca.com/rules/2021coursepoints.pdf" rel="noopener noreferrer" >SORRCA Course Points</a>
     </div>
     </>
   )

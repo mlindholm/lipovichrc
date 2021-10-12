@@ -1,32 +1,55 @@
 .Finish__Podium {
-  padding: 16px 16px 0;
+  padding: 24px 16px 0;
   max-width: 720px;
   margin: var(--nav-height) auto 0;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom: 1px solid var(--gray-5);
 }
 
 .Podium__Entry {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   border-radius: 4px;
-  padding: 9px 12px;
-  margin-bottom: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 16px 4px;
+  margin: 0 4px;
+  width: 33.333%;
+}
+
+.Podium__Entry--first {
+  background-color: #ffec99;
+  height: 100%;
+}
+
+.Podium__Entry--second {
+  order: -1;
+  background-color: #e9ecef;
+  height: 85%;
+}
+
+.Podium__Entry--third {
+  background-color: #f0ddd1;
+  height: 70%;
 }
 
 .Podium__Medal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
+  margin-bottom: 4px;
+  font-size: 32px;
 }
 
 .Podium__Name {
-  margin-left: 8px;
+  margin-bottom: 2px;
   font-weight: 700;
+  word-break: break-all;
 }
 
 .Podium__Points {
-  margin-left: auto;
-  text-align: right;
   font-size: 14px;
 }
 
@@ -47,7 +70,6 @@
 .Finish__Table th,
 .Finish__Table td {
   padding: 7px 4px;
-  text-align: left;
   font-size: 14px;
   text-align: center;
 }

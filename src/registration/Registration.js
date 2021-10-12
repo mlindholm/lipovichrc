@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
 import Navigation from '../navigation/Navigation'
@@ -11,35 +11,32 @@ const driverObj = id => ({
   id,
   name: '',
   points: {},
-  current: false
 })
 
 function Registration({startFunc}) {
   const history = useHistory()
-  const [, setDrivers] = useIdb('drivers')
-  const [localDrivers, setLocalDrivers] = useState([driverObj(1)])
-
-  const updateDriver = id => event => {
-    const newArray = localDrivers.map(driver =>
-      driver.id === id ? { ...driver, name: event.target.value } : driver
-    )
-    setLocalDrivers(newArray)
-  }
+  const [drivers, setDrivers] = useIdb('drivers', [driverObj(0)])
 
   const addDriver = () => {
-    const newArray = [...localDrivers, driverObj(localDrivers.length + 1)]
-    setLocalDrivers(newArray)
+    const newArray = [...drivers, driverObj(drivers.length)]
+    setDrivers(newArray)
+  }
+
+  const updateDriver = id => event => {
+    const newArray = drivers.map(driver =>
+      driver.id === id ? { ...driver, name: event.target.value } : driver
+    )
+    setDrivers(newArray)
   }
 
   const removeDriver = id => {
-    const newArray = [...localDrivers].filter(item => item.id !== id)
-    setLocalDrivers(newArray)
+    const newArray = [...drivers].filter(item => item.id !== id)
+    setDrivers(newArray)
   }
 
   const startCompetition = () => {
-    const filteredDrivers = localDrivers.filter(driver => driver.name !== '')
+    const filteredDrivers = drivers.filter(driver => driver.name !== '')
     if (isEmpty(filteredDrivers)) return null
-    filteredDrivers[0].current = true
     setDrivers(filteredDrivers)
     history.push('/compete')
   }
@@ -48,7 +45,7 @@ function Registration({startFunc}) {
     <>
       <Navigation title="Registration" />
       <div className="Registration">
-        {localDrivers.map(driver => (
+        {drivers.map(driver => (
           <div key={driver.id} className="Registration__Row">
             <input
               name="name"
