@@ -36,13 +36,13 @@ export const courseRules = [
     description: 'Vehicle Touch: (+10 pts) All vehicle touches excluding “rollovers”, "winching", "assisted recoveries" (see associated rules), intentional or unintentional, are given an automatic +10 points. The judge then will stop time when either the driver calls for a vehicle touch or the judge calls a driver touch. The vehicle is then moved back by the driver to the previously cleared gate with the rear axle aligned to that gate. If the vehicle cannot be aligned to the gate due to course design, the judge will reposition the vehicle to the next stable location after the cleared gate. This location will be used for all drivers. Note: All gates for progress are still “live” unless a gate has already been deemed “dead”. Vehicle touches include but are not limited to: repairs, repositions, vehicle driving/falling into the driver. \n\nReposition: (+10 pts) The vehicle will be placed with its rear tires in the last gate progressed or the nearest stable location after the last cleared gate if the last gate cleared is unstable.'
   },
   {
-    id: 5,
+    id: 7,
     name: 'Repairs',
     points: 10,
     description: 'On-Course Repairs: (+10pts) Must be completed on course and in the spot of which the driver decided to take the repair. Repairs must be made within the course time, while the course timer will continue to run. If repairs are made within the course time, the driver must return to the last previous gate cleared. If repairs cannot be made within the course time, the driver is given a DNF minus progress points for that course. There are no restrictions on whom or how the repairs are made. \n\nOff-Course Repairs: (+10pts) A driver can call time to make an off-course repair. Repairs should be completed within 30 minutes, or the driver is given a DNF minus progress points. If the repair is made in the allotted time, the driver must return to the last previous gate cleared. A 1 minute time penalty will be subtracted from the time that is left on that course, the timer will continue once the vehicle makes forward progress.'
   },
   {
-    id: 7,
+    id: 8,
     name: 'Did not finish',
     points: 80 + 20,
     description: 'DNF (Did Not Finish): (point out +20 pts) given anytime a driver cannot complete a course. Progress then Scale points are awarded after. (80 + 20 - progress - scale points.)',
