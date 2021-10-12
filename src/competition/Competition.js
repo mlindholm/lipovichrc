@@ -91,6 +91,7 @@ function Competition() {
     </div>
     <div className="Competition__Footer">
       <Button onClick={confirmEndCompetition} color="secondary">End Competition</Button>
+      <Button linkTo="/register" color="secondary">Edit Drivers</Button>
     </div>
     </>
   )
