@@ -1,15 +1,17 @@
 import React from 'react'
 import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
+import formatDuration from 'format-duration'
 import Navigation from '../navigation/Navigation'
 import Button from '../button/Button'
 import { courseRules } from '../utils/rules'
 import { isEmpty } from '../utils/actions'
+import { useTimer } from '../utils/useTimer'
 import { ReactComponent as HelpIcon } from '../images/help.svg'
 import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
 import './Competition.css'
-import { useTimer } from '../utils/useTimer'
+
 
 function Competition() {
   const history = useHistory()
@@ -80,7 +82,7 @@ function Competition() {
     <>
     <Navigation
       title={getCurrentDriver().name}
-      subtitle={elapsedTime.toFixed(1)}
+      subtitle={formatDuration(elapsedTime * 100)}
       leftOnClick={setPrevDriver}
       rightOnClick={setNextDriver}
     />

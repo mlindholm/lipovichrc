@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
+import formatDuration from 'format-duration'
 import Navigation from '../navigation/Navigation'
 import Button from '../button/Button'
 import { calculateTotal, isEmpty } from '../utils/actions'
@@ -46,7 +47,8 @@ function Finish({restartFunc}) {
                   {driver.name}
                 </div>
                 <div className="Podium__Points">
-                  {calculateTotal(driver.points)} points
+                  {calculateTotal(driver.points)} points<br/>
+                  {formatDuration(driver.elapsedTime * 100)}
                 </div>
               </div>
             ))
@@ -56,8 +58,8 @@ function Finish({restartFunc}) {
           <table className="Finish__Table">
             <thead>
               <tr>
-                <th>Breakdown</th>
-                {drivers.map(driver => <th>{driver.name}</th>)}
+                <th><strong>Breakdown</strong></th>
+                {drivers.map(driver => <th><strong>{driver.name}</strong><br/>{formatDuration(driver.elapsedTime * 100)}</th>)}
               </tr>
             </thead>
             <tbody>
@@ -70,7 +72,7 @@ function Finish({restartFunc}) {
             </tbody>
             <tfoot>
               <tr>
-                <td><strong>Total</strong></td>
+                <td><strong>Total points</strong></td>
                 {drivers.map(driver => <td><strong>{calculateTotal(driver.points)}</strong></td>)}
               </tr>
             </tfoot>

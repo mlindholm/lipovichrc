@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "classnames-minimal": "^1.0.1",
+    "format-duration": "^1.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",

@@ -8,7 +8,7 @@ export const useTimer = () => {
     let interval
     if (isRunning) {
       interval = setInterval(
-        () => setElapsedTime((prevElapsedTime) => prevElapsedTime + 0.1),
+        () => setElapsedTime((prevElapsedTime) => prevElapsedTime + 1),
         100
       )
     }
