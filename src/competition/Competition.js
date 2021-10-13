@@ -12,7 +12,6 @@ import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
 import './Competition.css'
 
-
 function Competition() {
   const history = useHistory()
   const [drivers, setDrivers] = useIdb('drivers')
@@ -85,8 +84,8 @@ function Competition() {
     <Navigation
       title={getCurrentDriver().name}
       subtitle={formatDuration(elapsedTime * 100)}
-      leftOnClick={setPrevDriver}
-      rightOnClick={setNextDriver}
+      leftClickFn={setPrevDriver}
+      rightClickFn={setNextDriver}
     />
     <div className="Competition">
       {courseRules.map(rule => (
