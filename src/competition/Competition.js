@@ -92,7 +92,7 @@ function Competition() {
           <div>
             <div className="CourseRule__Name">{rule.name}</div>
             <div className="CourseRule__Points">
-              {rule.points > 0 && '+'}{rule.points}
+              {rule.label}
               {rule.description && (
                 <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={17} height={17} /></button>
               )}

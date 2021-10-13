@@ -39,7 +39,7 @@ function Finish({restartFunc}) {
             .sort((a, b) => calculateTotal(a.points) - calculateTotal(b.points))
             .slice(0,3)
             .map((driver, i) => (
-              <div className={`Podium__Entry Podium__Entry--${medals[i].suffix}`} style={{backgroundColor: medals[i].color}}>
+              <div className={`Podium__Entry Podium__Entry--${medals[i].suffix}`}>
                 <div className="Podium__Medal">
                   {medals[i].icon}
                 </div>
@@ -47,7 +47,7 @@ function Finish({restartFunc}) {
                   {driver.name}
                 </div>
                 <div className="Podium__Points">
-                  {calculateTotal(driver.points)} points<br/>
+                  {calculateTotal(driver.points)} pts<br/>
                   {formatDuration(driver.elapsedTime * 100)}
                 </div>
               </div>
@@ -65,7 +65,7 @@ function Finish({restartFunc}) {
             <tbody>
               {courseRules.map(rule => (
                 <tr>
-                  <td>{rule.name} <small style={{color:'gray'}}>{rule.points}</small></td>
+                  <td>{rule.name}</td>
                   {drivers.map(driver => <td>{driver.points[rule.id] * rule.points || 0}</td>)}
                 </tr>
               ))}
