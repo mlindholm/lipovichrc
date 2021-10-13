@@ -1,27 +1,15 @@
 .Competition {
-  padding: 16px 16px 0;
-  width: 100%;
-  max-width: 720px;
-  margin: var(--nav-height) auto 0;
-}
-
-.Competition__Footer {
-  padding: 0 16px 8px;
+  padding: var(--nav-height) 16px;
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
-}
-
-.Competition__Footer .Button {
-  margin: 8px 0;
 }
 
 .CourseRule {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
-  padding-bottom: 16px;
+  padding: 16px 0;
   border-bottom: 1px solid var(--gray-5);
 }
 
@@ -85,4 +73,21 @@
   font-size: 14px;
   width: 40px;
   text-align: center;
+}
+
+
+.Competition__Footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  background-color: var(--white);
+  display: flex;
+  align-items: center;
+}
+
+.Competition__Footer .Button {
+  margin: 8px;
 }

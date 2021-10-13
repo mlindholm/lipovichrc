@@ -33,7 +33,7 @@ function Competition() {
     setDrivers(newArray)
   }
 
-  const setDriverTime = () => {
+  const stopTimerSetDriverTime = () => {
     stopTimer()
     const newArray = drivers.map(driver =>
       driver.id === currentDriverId ? { ...driver, elapsedTime } : driver
@@ -42,24 +42,26 @@ function Competition() {
   }
 
   const setPrevDriver = () => {
-    setDriverTime()
+    stopTimerSetDriverTime()
     const prevDriver = drivers.at(getCurrentDriver().index - 1)
     setCurrentDriverId(prevDriver.id)
     setElapsedTime(prevDriver.elapsedTime)
   }
 
   const setNextDriver = () => {
-    setDriverTime()
+    stopTimerSetDriverTime()
     const nextDriver = drivers.at(getCurrentDriver().index + 1) || drivers.at(0)
     setCurrentDriverId(nextDriver.id)
     setElapsedTime(nextDriver.elapsedTime)
   }
 
-  const confirmEndCompetition = () => {
+  const onEndCompetition = () => {
     if (window.confirm("End competition?")) {
       history.push('/finish')
     }
   }
+
+  const onTimerPress = () => isRunning ? stopTimerSetDriverTime() : startTimer()
 
   const renderStepper = (ruleId, max) => {
     const value = getCurrentDriver().points[ruleId] || 0
@@ -103,9 +105,8 @@ function Competition() {
       ))}
     </div>
     <div className="Competition__Footer">
-      <Button onClick={() => isRunning ? stopTimer() : startTimer()} color="secondary">{isRunning ? 'Stop' : 'Start'} timer</Button>
-      <Button onClick={confirmEndCompetition} color="secondary">End Competition</Button>
-      <Button linkTo="/register" color="secondary">Edit Drivers</Button>
+      <Button onClick={onEndCompetition} color="secondary">End Competition</Button>
+      <Button onClick={onTimerPress} color="primary">{isRunning ? 'Pause' : 'Start'} Timer</Button>
     </div>
     </>
   )
