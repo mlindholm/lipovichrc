@@ -17,7 +17,6 @@ const driverObj = id => ({
 function Registration({startFunc}) {
   const history = useHistory()
   const [drivers, setDrivers] = useIdb('drivers', [driverObj(0)])
-  const [currentDriverId, setCurrentDriverId] = useIdb('current-driver-id', 0)
 
   const addDriver = () => {
     const newArray = [...drivers, driverObj(drivers.length)]
@@ -40,13 +39,12 @@ function Registration({startFunc}) {
     const filteredDrivers = drivers.filter(driver => driver.name !== '')
     if (isEmpty(filteredDrivers)) return null
     setDrivers(filteredDrivers)
-    setCurrentDriverId(currentDriverId || filteredDrivers[0].id)
     history.push('/compete')
   }
 
   return (
     <>
-      <Navigation title={`${currentDriverId ? 'Edit' : 'Register'} Drivers`} />
+      <Navigation title="Register Drivers" />
       <div className="Registration">
         {drivers.map(driver => (
           <div key={driver.id} className="Registration__Row">
@@ -69,7 +67,7 @@ function Registration({startFunc}) {
           </div>
         ))}
         <Button onClick={() => addDriver()} color="primary">Add Driver</Button>
-        <Button onClick={startCompetition} color="primary">{currentDriverId ? 'Resume' : 'Start'} Competition</Button>
+        <Button onClick={startCompetition} color="primary">Start Competition</Button>
       </div>
     </>
   )
