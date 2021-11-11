@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
 import formatDuration from 'format-duration'
@@ -10,13 +10,31 @@ import { useTimer } from '../utils/useTimer'
 import { ReactComponent as HelpIcon } from '../images/help.svg'
 import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
+import { useSpeechContext } from '@speechly/react-client'
 import './Competition.css'
 
 function Competition() {
   const history = useHistory()
   const [drivers, setDrivers] = useIdb('drivers')
+  const { segment } = useSpeechContext()
   const [currentDriverId, setCurrentDriverId] = useIdb('current-driver-id', 0)
   const { isRunning, elapsedTime, startTimer, stopTimer, setElapsedTime} = useTimer()
+  const [position, setPosition] = useState(-1)
+
+  useEffect(() => {
+    if (!isEmpty(segment?.entities)) {
+      const entityArr = segment.entities
+      const ruleId = Number(entityArr[entityArr.length - 1].value)
+      const value = getCurrentDriver().points[ruleId] || 0
+      if (position < entityArr.length - 1) {
+        setDriverPoints(ruleId, value + 1)
+        setPosition(entityArr.length - 1)
+      }
+    }
+    if (segment?.isFinal) {
+      setPosition(-1)
+    }
+  }, [segment])
 
   if (isEmpty(drivers)) return null
 

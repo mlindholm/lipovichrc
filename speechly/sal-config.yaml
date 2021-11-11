@@ -1,0 +1,15 @@
+entities:
+ - name: rule
+   type: lookup
+   input_items: $rules_spoken
+   output_items: $rules_normalized
+   variant: snapping
+imports:
+ - name: rules_spoken
+   source: rules.csv
+   field: 2
+ - name: rules_normalized
+   source: rules.csv
+   field: 1
+templates: |
+  *add $rules_spoken(rule)
