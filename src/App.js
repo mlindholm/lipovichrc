@@ -38,7 +38,10 @@ function App() {
             }
           </Route>
           <Route path="/finish">
-            <Finish />
+            {isEmpty(drivers)
+              ? <Redirect to="/register" />
+              : <Finish />
+            }
           </Route>
           <Route path="*">
             <Redirect to="/compete" />

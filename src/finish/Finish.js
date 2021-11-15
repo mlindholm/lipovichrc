@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import formatDuration from 'format-duration'
 import Navigation from '../navigation/Navigation'
 import Button from '../button/Button'
-import { calculateTotal, isEmpty } from '../utils/actions'
+import { calculateTotal } from '../utils/actions'
 import { courseRules } from '../utils/rules'
 import './Finish.css'
 
@@ -27,8 +27,6 @@ function Finish({restartFunc}) {
       history.push('/register')
     }
   }
-
-  if (isEmpty(drivers)) return null
 
   return (
     <>
