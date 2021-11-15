@@ -9,6 +9,7 @@ export default function CourseRule({ rule, value, stepperFn }) {
   const [animate, setAnimate] = useState(false)
 
   useEffect(() => {
+    if (!value) return
     window.navigator.vibrate(20)
     setAnimate(a => !a)
     setTimeout(() => {
