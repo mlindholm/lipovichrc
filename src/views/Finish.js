@@ -21,7 +21,7 @@ function Finish() {
   ]
 
   const confirmRestart = () => {
-    if (window.confirm('Start new competition?')) {
+    if (window.confirm('Start a new competition?')) {
       setDrivers(undefined)
       setCurrentDriverId(undefined)
       history.push('/register')

@@ -21,7 +21,6 @@ function Registration() {
 
   useEffect(() => {
     if(isEmpty(drivers)) return
-    console.log('drivers array updated', drivers)
     history.push('/compete')
   }, [drivers, history])
 
@@ -51,7 +50,7 @@ function Registration() {
 
   return (
     <>
-      <Navigation title="Register Drivers" />
+      <Navigation title="New Competition" />
       <div className="Registration">
         {tmpDrivers.map(driver => (
           <div key={driver.id} className="Registration__Row">
