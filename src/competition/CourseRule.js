@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import classnames from 'classnames-minimal'
 import { ReactComponent as HelpIcon } from '../images/help.svg'
 import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
-import classnames from 'classnames-minimal'
 import './CourseRule.css'
 
 export default function CourseRule({ rule, value, fn }) {

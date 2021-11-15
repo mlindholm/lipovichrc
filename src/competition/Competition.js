@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
+import { useSpeechContext } from '@speechly/react-client'
 import formatDuration from 'format-duration'
 import Navigation from '../navigation/Navigation'
 import Button from '../button/Button'
 import { courseRules } from '../utils/rules'
 import { isEmpty } from '../utils/actions'
 import { useTimer } from '../utils/useTimer'
-import { useSpeechContext } from '@speechly/react-client'
 import CourseRule from './CourseRule'
 import './Competition.css'
 
@@ -18,6 +18,19 @@ function Competition() {
   const [currentDriverId, setCurrentDriverId] = useIdb('current-driver-id', 0)
   const { isRunning, elapsedTime, startTimer, stopTimer, setElapsedTime} = useTimer()
   const [position, setPosition] = useState(-1)
+
+  const getCurrentDriver = useCallback(() => {
+    const index = drivers.findIndex(driver => driver.id === currentDriverId)
+    return {...drivers[index], index}
+  }, [currentDriverId, drivers])
+
+  const setDriverPoints = useCallback((ruleId, value) => {
+    const newArray = drivers.map(driver =>
+      driver.id === currentDriverId ? { ...driver, points: { ...driver.points, [ruleId]: value } } : driver
+    )
+    setDrivers(newArray)
+  }, [currentDriverId, drivers, setDrivers])
+
 
   useEffect(() => {
     if (!isEmpty(segment?.entities)) {
@@ -32,21 +45,7 @@ function Competition() {
     if (segment?.isFinal) {
       setPosition(-1)
     }
-  }, [segment])
-
-  if (isEmpty(drivers)) return null
-
-  const getCurrentDriver = () => {
-    const index = drivers.findIndex(driver => driver.id === currentDriverId)
-    return {...drivers[index], index}
-  }
-
-  const setDriverPoints = (ruleId, value) => {
-    const newArray = drivers.map(driver =>
-      driver.id === currentDriverId ? { ...driver, points: { ...driver.points, [ruleId]: value } } : driver
-    )
-    setDrivers(newArray)
-  }
+  }, [segment, getCurrentDriver, position, setDriverPoints])
 
   const stopTimerSetDriverTime = () => {
     stopTimer()
