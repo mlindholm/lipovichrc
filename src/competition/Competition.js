@@ -7,10 +7,8 @@ import Button from '../button/Button'
 import { courseRules } from '../utils/rules'
 import { isEmpty } from '../utils/actions'
 import { useTimer } from '../utils/useTimer'
-import { ReactComponent as HelpIcon } from '../images/help.svg'
-import { ReactComponent as AddIcon } from '../images/add.svg'
-import { ReactComponent as RemoveIcon } from '../images/remove.svg'
 import { useSpeechContext } from '@speechly/react-client'
+import CourseRule from './CourseRule'
 import './Competition.css'
 
 function Competition() {
@@ -80,21 +78,9 @@ function Competition() {
 
   const onTimerPress = () => isRunning ? stopTimerSetDriverTime() : startTimer()
 
-  const renderStepper = (ruleId, max) => {
-    const value = getCurrentDriver().points[ruleId] || 0
-    const handleClick = (int, max) => {
-      const newValue = value + int
-      if (newValue < 0 || newValue > max) return
-      setDriverPoints(ruleId, newValue)
-    }
-
-    return (
-      <div className="Stepper">
-        <button className="Stepper__Button" onClick={() => handleClick(-1)}><RemoveIcon width={18} height={18} /></button>
-        <div className="Stepper__Input" type="number">{value}</div>
-        <button className="Stepper__Button" onClick={() => handleClick(1, max)}><AddIcon width={18} height={18} /></button>
-      </div>
-    )
+  const callbackFunction = (id, value, max) => {
+    if (value < 0 || value > max) return
+    setDriverPoints(id, value)
   }
 
   return (
@@ -106,20 +92,13 @@ function Competition() {
       rightClickFn={setNextDriver}
     />
     <div className="Competition">
-      {courseRules.map(rule => (
-        <div key={rule.name} className="CourseRule">
-          <div>
-            <div className="CourseRule__Name">{rule.name}</div>
-            <div className="CourseRule__Points">
-              {rule.label}
-              {rule.description && (
-                <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={17} height={17} /></button>
-              )}
-            </div>
-          </div>
-          {renderStepper(rule.id, rule.max)}
-        </div>
-      ))}
+      {courseRules.map(rule =>
+        <CourseRule
+          key={rule.id}
+          rule={rule}
+          value={getCurrentDriver().points[rule.id] || 0}
+          fn={callbackFunction} />
+      )}
     </div>
     <div className="Competition__Footer">
       <Button onClick={onEndCompetition} color="secondary">End Competition</Button>
