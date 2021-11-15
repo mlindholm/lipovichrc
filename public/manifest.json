@@ -1,7 +1,7 @@
 {
   "short_name": "Lipovich",
-  "name": "Lipovich - RC Crawling Comp Scoring",
-  "description": "Lipovich is a handy tool for scoring rc crawling comps on your phone",
+  "name": "Lipovich - RC Crawler Comp Scoring",
+  "description": "Lipovich is a handy tool for scoring rc crawling comps on your phone using voice",
   "icons": [
     {
       "src": "favicon.ico",
