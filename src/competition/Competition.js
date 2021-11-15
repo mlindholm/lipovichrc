@@ -31,7 +31,6 @@ function Competition() {
     setDrivers(newArray)
   }, [currentDriverId, drivers, setDrivers])
 
-
   useEffect(() => {
     if (!isEmpty(segment?.entities)) {
       const entityArr = segment.entities
@@ -77,7 +76,7 @@ function Competition() {
 
   const onTimerPress = () => isRunning ? stopTimerSetDriverTime() : startTimer()
 
-  const callbackFunction = (id, value, max) => {
+  const onDriverPointsChange = (id, value, max) => {
     if (value < 0 || value > max) return
     setDriverPoints(id, value)
   }
@@ -96,7 +95,7 @@ function Competition() {
           key={rule.id}
           rule={rule}
           value={getCurrentDriver().points[rule.id] || 0}
-          fn={callbackFunction} />
+          stepperFn={onDriverPointsChange} />
       )}
     </div>
     <div className="Competition__Footer">
