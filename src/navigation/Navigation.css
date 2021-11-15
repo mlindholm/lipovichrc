@@ -9,7 +9,7 @@
   justify-content: space-between;
   background-color: var(--midnight);
   height: var(--nav-height);
-  z-index: 999;
+  z-index: 1;
 }
 
 .Navigation__Title-container {

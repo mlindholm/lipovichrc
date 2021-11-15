@@ -5,7 +5,7 @@ import Competition from './competition/Competition'
 import Finish from './finish/Finish'
 import InstallPWA from './pwa/InstallPWA'
 import ScrollToTop from './utils/ScrollToTop'
-import { PushToTalkButton } from '@speechly/react-ui'
+import { BigTranscript, PushToTalkButton } from '@speechly/react-ui'
 import { SpeechProvider } from '@speechly/react-client'
 import './App.css'
 
@@ -20,8 +20,9 @@ function App() {
             <InstallPWA />
           </Route>
           <Route path="/compete">
+            <BigTranscript highlightColor="#f4882a" backgroundColor="#17191c" />
             <Competition />
-            <PushToTalkButton placement="bottom" size="72px" />
+            <PushToTalkButton placement="bottom" size="72px" gradientStops={['#f6b035', '#f4882a']} fontSize="1rem" backgroundColor="#17191c" />
           </Route>
           <Route path="/finish">
             <Finish />
