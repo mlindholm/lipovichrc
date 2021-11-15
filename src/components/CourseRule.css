@@ -4,19 +4,11 @@
   justify-content: space-between;
   padding: 16px;
   border-bottom: 1px solid var(--gray-5);
+  transition: all .5s ease-in-out;
 }
 
 .CourseRule--animated {
-  animation-name: flash;
-  animation-duration: 1s;
-  animation-iteration-count: 1;
-  animation-timing-function: ease;
-}
-
-@keyframes flash {
-  0% { background: #fff }
-  50% { background: #fef0e5 }
-  100% { background: #fff }
+  background-color: #fef0e5;
 }
 
 .CourseRule__Name {

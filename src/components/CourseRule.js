@@ -9,12 +9,12 @@ export default function CourseRule({ rule, value, stepperFn }) {
   const [animate, setAnimate] = useState(false)
 
   useEffect(() => {
-    if (!value) return
+    if (value === undefined) return
     window.navigator.vibrate(20)
     setAnimate(a => !a)
     setTimeout(() => {
       setAnimate(a => !a)
-    }, 1000)
+    }, 500)
   }, [value]);
 
   const courseRuleClassName = classnames({
@@ -35,7 +35,7 @@ export default function CourseRule({ rule, value, stepperFn }) {
       </div>
       <div className="Stepper">
         <button className="Stepper__Button" onClick={() => stepperFn(rule.id, value - 1)}><RemoveIcon width={18} height={18} /></button>
-        <div className="Stepper__Input" type="number">{value}</div>
+        <div className="Stepper__Input" type="number">{value || 0}</div>
         <button className="Stepper__Button" onClick={() => stepperFn(rule.id, value + 1, rule.max)}><AddIcon width={18} height={18} /></button>
       </div>
     </div>
