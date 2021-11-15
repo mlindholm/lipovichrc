@@ -1,7 +1,8 @@
 import React from 'react'
-import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
 import formatDuration from 'format-duration'
+import { useLiveQuery } from 'dexie-react-hooks'
+import { db } from '../utils/database'
 import { calculateTotal, isEmpty } from '../utils/actions'
 import { courseRules } from '../utils/rules'
 import Navigation from '../components/Navigation'
@@ -11,8 +12,7 @@ import './Finish.css'
 
 function Finish() {
   const history = useHistory()
-  const [drivers, setDrivers] = useIdb('drivers')
-  const [, setCurrentDriverId] = useIdb('current-driver-id')
+  const allDrivers = useLiveQuery(() => db.drivers.toArray(), []);
 
   const medals = [
     {icon: '🥇', suffix: 'first'},
@@ -20,22 +20,21 @@ function Finish() {
     {icon: '🥉', suffix: 'third'},
   ]
 
-  const confirmRestart = () => {
+  const confirmRestart = async () => {
     if (window.confirm('Start a new competition?')) {
-      setDrivers(undefined)
-      setCurrentDriverId(undefined)
+      await db.drivers.clear()
       history.push('/register')
     }
   }
 
-  if (isEmpty(drivers)) return <Spinner />
+  if (isEmpty(allDrivers)) return <Spinner />
 
   return (
     <>
       <Navigation title="Finished" />
       <div className="Finish">
         <div className="Finish__Podium">
-          {drivers
+          {allDrivers && allDrivers
             .sort((a, b) => calculateTotal(a.points) - calculateTotal(b.points))
             .slice(0,3)
             .map((driver, i) => (
@@ -59,21 +58,21 @@ function Finish() {
             <thead>
               <tr>
                 <th><strong>Breakdown</strong></th>
-                {drivers.map(driver => <th><strong>{driver.name}</strong><br/>{formatDuration(driver.elapsedTime * 100)}</th>)}
+                {allDrivers && allDrivers.map(driver => <th><strong>{driver.name}</strong><br/>{formatDuration(driver.elapsedTime * 100)}</th>)}
               </tr>
             </thead>
             <tbody>
               {courseRules.map(rule => (
                 <tr>
                   <td>{rule.name}</td>
-                  {drivers.map(driver => <td>{driver.points[rule.id] * rule.points || 0}</td>)}
+                  {allDrivers && allDrivers.map(driver => <td>{driver.points[rule.id] * rule.points || 0}</td>)}
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr>
                 <td><strong>Total points</strong></td>
-                {drivers.map(driver => <td><strong>{calculateTotal(driver.points)}</strong></td>)}
+                {allDrivers && allDrivers.map(driver => <td><strong>{calculateTotal(driver.points)}</strong></td>)}
               </tr>
             </tfoot>
           </table>

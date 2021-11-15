@@ -6,6 +6,8 @@
     "@speechly/react-client": "^0.0.22",
     "@speechly/react-ui": "^2.1.2",
     "classnames-minimal": "^1.0.1",
+    "dexie": "^3.2.0-rc.3",
+    "dexie-react-hooks": "^1.0.7",
     "format-duration": "^1.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useIdb } from 'react-use-idb'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSpeechContext } from '@speechly/react-client'
 import formatDuration from 'format-duration'
+import { useLiveQuery } from 'dexie-react-hooks'
+import { db } from '../utils/database'
 import { courseRules } from '../utils/rules'
 import { isEmpty } from '../utils/actions'
 import { useTimer } from '../utils/useTimer'
@@ -14,31 +15,21 @@ import './Competition.css'
 
 function Competition() {
   const history = useHistory()
-  const [drivers, setDrivers] = useIdb('drivers')
-  const [currentDriverId, setCurrentDriverId] = useIdb('current-driver-id', 0)
+  const allDrivers = useLiveQuery(() => db.drivers.toArray(), [])
+  const currentDriver = allDrivers && allDrivers.find(d => d.isCurrent)
   const { isRunning, elapsedTime, startTimer, stopTimer, setElapsedTime} = useTimer()
   const { segment } = useSpeechContext()
   const [segmentPosition, setSegmentPosition] = useState(-1)
-
-  const getCurrentDriver = useCallback(() => {
-    const index = drivers.findIndex(driver => driver.id === currentDriverId)
-    return {...drivers[index], index}
-  }, [currentDriverId, drivers])
-
-  const setDriverPoints = useCallback((ruleId, value) => {
-    const newArray = drivers.map(driver =>
-      driver.id === currentDriverId ? { ...driver, points: { ...driver.points, [ruleId]: value } } : driver
-    )
-    setDrivers(newArray)
-  }, [currentDriverId, drivers, setDrivers])
 
   useEffect(() => {
     if (!isEmpty(segment?.entities)) {
       const entityArr = segment.entities
       const ruleId = Number(entityArr[entityArr.length - 1].value)
-      const value = getCurrentDriver().points[ruleId] || 0
+      const value = currentDriver?.points[ruleId] || 0
+      const updatePoints = async (id, newValue) => await db.drivers.where({ id: currentDriver.id }).modify(d => { d.points[id] = newValue })
+
       if (segmentPosition < entityArr.length - 1) {
-        setDriverPoints(ruleId, value + 1)
+        updatePoints(ruleId, value + 1)
         setSegmentPosition(entityArr.length - 1)
       }
     }
@@ -47,25 +38,26 @@ function Competition() {
     }
   }, [segment])
 
-  const stopTimerSetDriverTime = () => {
-    stopTimer()
-    const newArray = drivers.map(driver =>
-      driver.id === currentDriverId ? { ...driver, elapsedTime } : driver
-    )
-    setDrivers(newArray)
-  }
 
-  const setPrevDriver = () => {
-    stopTimerSetDriverTime()
-    const prevDriver = drivers.at(getCurrentDriver().index - 1)
-    setCurrentDriverId(prevDriver.id)
+  const setPrevDriver = async () => {
+    stopTimer()
+    const currentIndex = allDrivers.findIndex(driver => driver.id === currentDriver.id)
+    const prevDriver = allDrivers.at(currentIndex - 1)
+    await db.transaction('rw', db.drivers, async () => {
+      db.drivers.update(currentDriver.id, { isCurrent: false, elapsedTime })
+      db.drivers.update(prevDriver.id, { isCurrent: true })
+    })
     setElapsedTime(prevDriver.elapsedTime)
   }
 
-  const setNextDriver = () => {
-    stopTimerSetDriverTime()
-    const nextDriver = drivers.at(getCurrentDriver().index + 1) || drivers.at(0)
-    setCurrentDriverId(nextDriver.id)
+  const setNextDriver = async () => {
+    stopTimer()
+    const currentIndex = allDrivers.findIndex(driver => driver.id === currentDriver.id)
+    const nextDriver = allDrivers.at(currentIndex + 1) || allDrivers.at(0)
+    await db.transaction('rw', db.drivers, async () => {
+      db.drivers.update(currentDriver.id, { isCurrent: false, elapsedTime })
+      db.drivers.update(nextDriver.id, { isCurrent: true })
+    })
     setElapsedTime(nextDriver.elapsedTime)
   }
 
@@ -75,19 +67,24 @@ function Competition() {
     }
   }
 
-  const onTimerPress = () => isRunning ? stopTimerSetDriverTime() : startTimer()
-
-  const onDriverPointsChange = (id, value, max) => {
-    if (value < 0 || value > max) return
-    setDriverPoints(id, value)
+  const pauseTimer = async () => {
+    stopTimer()
+    await db.drivers.update(currentDriver.id, { elapsedTime })
   }
 
-  if (isEmpty(drivers)) return <Spinner />
+  const onTimerPress = () => isRunning ? pauseTimer() : startTimer()
+
+  const onDriverPointsChange = async (id, value, max) => {
+    if (value < 0 || value > max) return
+    await db.drivers.where({ id: currentDriver.id }).modify(d => { d.points[id] = value })
+  }
+
+  if (isEmpty(allDrivers)) return <Spinner />
 
   return (
     <>
     <Navigation
-      title={getCurrentDriver().name || ''}
+      title={currentDriver?.name}
       subtitle={formatDuration(elapsedTime * 100)}
       leftClickFn={setPrevDriver}
       rightClickFn={setNextDriver}
@@ -97,7 +94,7 @@ function Competition() {
         <CourseRule
           key={rule.id}
           rule={rule}
-          value={getCurrentDriver().points[rule.id] || 0}
+          value={currentDriver?.points[rule.id] || 0}
           stepperFn={onDriverPointsChange} />
       )}
     </div>

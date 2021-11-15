@@ -1,58 +1,40 @@
-import React, { useEffect, useState } from 'react'
-import { useIdb } from 'react-use-idb'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { useLiveQuery } from 'dexie-react-hooks'
+import { db } from '../utils/database'
 import Navigation from '../components/Navigation'
 import Button from '../components/Button'
-import { isEmpty } from '../utils/actions'
 import { ReactComponent as CloseIcon } from '../images/close.svg'
 import './Registration.css'
 
-const driverObj = id => ({
-  id,
-  name: '',
-  points: [{}],
-  elapsedTime: 0
-})
-
 function Registration() {
   const history = useHistory()
-  const [tmpDrivers, setTmpDrivers] = useState([driverObj(0)])
-  const [drivers, setDrivers] = useIdb('drivers')
+  const allDrivers = useLiveQuery(() => db.drivers.toArray(), []);
 
-  useEffect(() => {
-    if(isEmpty(drivers)) return
+  const addDriver = async () => {
+    await db.drivers.add({ name: '', isCurrent: false, points: {}, elapsedTime: 0 })
+  }
+
+  const updateDriver = async (id, name) => {
+    await db.drivers.update(id, { name })
+  }
+
+  const removeDriver = async id => {
+    await db.drivers.delete(id)
+  }
+
+  const startCompetition = async () => {
+    const firstDriver = allDrivers.filter(d => d.name !== '').shift()
+    await db.drivers.where({ name: '' }).delete()
+    await db.drivers.update(firstDriver.id, { isCurrent: true })
     history.push('/compete')
-  }, [drivers, history])
-
-  const addDriver = () => {
-    const newArray = [...tmpDrivers, driverObj(tmpDrivers.length)]
-    setTmpDrivers(newArray)
-  }
-
-  const updateDriver = id => event => {
-    const newArray = tmpDrivers.map(driver =>
-      driver.id === id ? { ...driver, name: event.target.value } : driver
-    )
-    setTmpDrivers(newArray)
-  }
-
-  const removeDriver = id => {
-    const newArray = [...tmpDrivers].filter(item => item.id !== id)
-    if (isEmpty(newArray)) return setTmpDrivers([driverObj(0)])
-    setTmpDrivers(newArray)
-  }
-
-  const startCompetition = () => {
-    const filteredDrivers = tmpDrivers.filter(driver => driver.name !== '')
-    if (isEmpty(filteredDrivers)) return null
-    setDrivers(filteredDrivers)
   }
 
   return (
     <>
       <Navigation title="New Competition" />
       <div className="Registration">
-        {tmpDrivers.map(driver => (
+        {allDrivers && allDrivers.map(driver => (
           <div key={driver.id} className="Registration__Row">
             <input
               name="name"
@@ -62,8 +44,8 @@ function Registration() {
               autoComplete="off"
               value={driver.name}
               placeholder="Driver Name"
-              onChange={updateDriver(driver.id)}
-              onKeyPress={event => event.key === 'Enter' && addDriver()}
+              onChange={e => updateDriver(driver.id, e.target.value)}
+              onKeyPress={e => e.key === 'Enter' && addDriver()}
             />
             {driver.name && (
               <div className="Registration__RemoveRow" onClick={() => removeDriver(driver.id)}>
