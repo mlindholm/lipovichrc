@@ -1,36 +1,51 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
+import { useSpeechContext } from '@speechly/react-client'
 import formatDuration from 'format-duration'
 import Navigation from '../navigation/Navigation'
 import Button from '../button/Button'
 import { courseRules } from '../utils/rules'
 import { isEmpty } from '../utils/actions'
 import { useTimer } from '../utils/useTimer'
-import { ReactComponent as HelpIcon } from '../images/help.svg'
-import { ReactComponent as AddIcon } from '../images/add.svg'
-import { ReactComponent as RemoveIcon } from '../images/remove.svg'
+import CourseRule from './CourseRule'
 import './Competition.css'
 
 function Competition() {
   const history = useHistory()
   const [drivers, setDrivers] = useIdb('drivers')
+  const { segment } = useSpeechContext()
   const [currentDriverId, setCurrentDriverId] = useIdb('current-driver-id', 0)
   const { isRunning, elapsedTime, startTimer, stopTimer, setElapsedTime} = useTimer()
+  const [position, setPosition] = useState(-1)
 
-  if (isEmpty(drivers)) return null
-
-  const getCurrentDriver = () => {
+  const getCurrentDriver = useCallback(() => {
     const index = drivers.findIndex(driver => driver.id === currentDriverId)
     return {...drivers[index], index}
-  }
+  }, [currentDriverId, drivers])
 
-  const setDriverPoints = (ruleId, value) => {
+  const setDriverPoints = useCallback((ruleId, value) => {
     const newArray = drivers.map(driver =>
       driver.id === currentDriverId ? { ...driver, points: { ...driver.points, [ruleId]: value } } : driver
     )
     setDrivers(newArray)
-  }
+  }, [currentDriverId, drivers, setDrivers])
+
+
+  useEffect(() => {
+    if (!isEmpty(segment?.entities)) {
+      const entityArr = segment.entities
+      const ruleId = Number(entityArr[entityArr.length - 1].value)
+      const value = getCurrentDriver().points[ruleId] || 0
+      if (position < entityArr.length - 1) {
+        setDriverPoints(ruleId, value + 1)
+        setPosition(entityArr.length - 1)
+      }
+    }
+    if (segment?.isFinal) {
+      setPosition(-1)
+    }
+  }, [segment, getCurrentDriver, position, setDriverPoints])
 
   const stopTimerSetDriverTime = () => {
     stopTimer()
@@ -62,21 +77,9 @@ function Competition() {
 
   const onTimerPress = () => isRunning ? stopTimerSetDriverTime() : startTimer()
 
-  const renderStepper = (ruleId, max) => {
-    const value = getCurrentDriver().points[ruleId] || 0
-    const handleClick = (int, max) => {
-      const newValue = value + int
-      if (newValue < 0 || newValue > max) return
-      setDriverPoints(ruleId, newValue)
-    }
-
-    return (
-      <div className="Stepper">
-        <button className="Stepper__Button" onClick={() => handleClick(-1)}><RemoveIcon width={18} height={18} /></button>
-        <div className="Stepper__Input" type="number">{value}</div>
-        <button className="Stepper__Button" onClick={() => handleClick(1, max)}><AddIcon width={18} height={18} /></button>
-      </div>
-    )
+  const callbackFunction = (id, value, max) => {
+    if (value < 0 || value > max) return
+    setDriverPoints(id, value)
   }
 
   return (
@@ -88,20 +91,13 @@ function Competition() {
       rightClickFn={setNextDriver}
     />
     <div className="Competition">
-      {courseRules.map(rule => (
-        <div key={rule.name} className="CourseRule">
-          <div>
-            <div className="CourseRule__Name">{rule.name}</div>
-            <div className="CourseRule__Points">
-              {rule.label}
-              {rule.description && (
-                <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={17} height={17} /></button>
-              )}
-            </div>
-          </div>
-          {renderStepper(rule.id, rule.max)}
-        </div>
-      ))}
+      {courseRules.map(rule =>
+        <CourseRule
+          key={rule.id}
+          rule={rule}
+          value={getCurrentDriver().points[rule.id] || 0}
+          fn={callbackFunction} />
+      )}
     </div>
     <div className="Competition__Footer">
       <Button onClick={onEndCompetition} color="secondary">End Competition</Button>

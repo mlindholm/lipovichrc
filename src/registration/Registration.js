@@ -14,7 +14,7 @@ const driverObj = id => ({
   elapsedTime: 0
 })
 
-function Registration({startFunc}) {
+function Registration() {
   const history = useHistory()
   const [drivers, setDrivers] = useIdb('drivers', [driverObj(0)])
 
@@ -32,6 +32,7 @@ function Registration({startFunc}) {
 
   const removeDriver = id => {
     const newArray = [...drivers].filter(item => item.id !== id)
+    if (isEmpty(newArray)) return setDrivers([driverObj(0)])
     setDrivers(newArray)
   }
 

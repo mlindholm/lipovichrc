@@ -1,0 +1,81 @@
+.CourseRule {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid var(--gray-5);
+}
+
+.CourseRule--animated {
+  animation-name: flash;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+}
+
+@keyframes flash {
+  0% { background: #fff }
+  50% { background: #fef0e5 }
+  100% { background: #fff }
+}
+
+.CourseRule__Name {
+  font-weight: 700;
+}
+
+.CourseRule__Points {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 14px;
+}
+
+.CourseRule__HelpButton {
+  fill: var(--gray-3);
+  border-radius: 999px;
+  padding: 4px;
+  line-height: 0;
+  transition: all .1s ease-in;
+}
+
+.CourseRule__HelpButton:active {
+  box-shadow: inset 0 0 0 100px rgba(0, 0, 0, .1);
+}
+
+.Stepper {
+  border-radius: 4px;
+  border: 1px solid var(--gray-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 38px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.Stepper__Button {
+  fill: var(--gray-1);
+  border-radius: 0;
+  line-height: 0;
+  padding: 9px;
+  transition: all .1s ease-in;
+}
+
+.Stepper__Button:active {
+  box-shadow: inset 0 0 0 100px rgba(0, 0, 0, .1);
+}
+
+.Stepper__Button:first-child {
+  border-right: 1px solid var(--gray-4);
+}
+
+.Stepper__Button:last-child {
+  border-left: 1px solid var(--gray-4);
+}
+
+.Stepper__Input {
+  border: none;
+  font-size: 14px;
+  width: 40px;
+  text-align: center;
+}
