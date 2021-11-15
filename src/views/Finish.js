@@ -2,12 +2,12 @@ import React from 'react'
 import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
 import formatDuration from 'format-duration'
-import Navigation from '../navigation/Navigation'
-import Button from '../button/Button'
-import { calculateTotal } from '../utils/actions'
+import { calculateTotal, isEmpty } from '../utils/actions'
 import { courseRules } from '../utils/rules'
+import Navigation from '../components/Navigation'
+import Button from '../components/Button'
+import Spinner from '../components/Spinner'
 import './Finish.css'
-
 
 function Finish() {
   const history = useHistory()
@@ -27,6 +27,8 @@ function Finish() {
       history.push('/register')
     }
   }
+
+  if (isEmpty(drivers)) return <Spinner />
 
   return (
     <>

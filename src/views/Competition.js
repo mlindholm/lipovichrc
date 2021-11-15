@@ -3,21 +3,22 @@ import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
 import { useSpeechContext } from '@speechly/react-client'
 import formatDuration from 'format-duration'
-import Navigation from '../navigation/Navigation'
-import Button from '../button/Button'
 import { courseRules } from '../utils/rules'
 import { isEmpty } from '../utils/actions'
 import { useTimer } from '../utils/useTimer'
-import CourseRule from './CourseRule'
+import Navigation from '../components/Navigation'
+import Button from '../components/Button'
+import CourseRule from '../components/CourseRule'
+import Spinner from '../components/Spinner'
 import './Competition.css'
 
 function Competition() {
   const history = useHistory()
   const [drivers, setDrivers] = useIdb('drivers')
-  const { segment } = useSpeechContext()
   const [currentDriverId, setCurrentDriverId] = useIdb('current-driver-id', 0)
   const { isRunning, elapsedTime, startTimer, stopTimer, setElapsedTime} = useTimer()
-  const [position, setPosition] = useState(-1)
+  const { segment } = useSpeechContext()
+  const [segmentPosition, setSegmentPosition] = useState(-1)
 
   const getCurrentDriver = useCallback(() => {
     const index = drivers.findIndex(driver => driver.id === currentDriverId)
@@ -36,15 +37,15 @@ function Competition() {
       const entityArr = segment.entities
       const ruleId = Number(entityArr[entityArr.length - 1].value)
       const value = getCurrentDriver().points[ruleId] || 0
-      if (position < entityArr.length - 1) {
+      if (segmentPosition < entityArr.length - 1) {
         setDriverPoints(ruleId, value + 1)
-        setPosition(entityArr.length - 1)
+        setSegmentPosition(entityArr.length - 1)
       }
     }
     if (segment?.isFinal) {
-      setPosition(-1)
+      setSegmentPosition(-1)
     }
-  }, [segment, getCurrentDriver, position, setDriverPoints])
+  }, [segment])
 
   const stopTimerSetDriverTime = () => {
     stopTimer()
@@ -81,10 +82,12 @@ function Competition() {
     setDriverPoints(id, value)
   }
 
+  if (isEmpty(drivers)) return <Spinner />
+
   return (
     <>
     <Navigation
-      title={getCurrentDriver().name}
+      title={getCurrentDriver().name || ''}
       subtitle={formatDuration(elapsedTime * 100)}
       leftClickFn={setPrevDriver}
       rightClickFn={setNextDriver}

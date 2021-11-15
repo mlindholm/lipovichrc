@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useIdb } from 'react-use-idb'
 import { useHistory } from 'react-router-dom'
-import Navigation from '../navigation/Navigation'
-import Button from '../button/Button'
+import Navigation from '../components/Navigation'
+import Button from '../components/Button'
 import { isEmpty } from '../utils/actions'
 import { ReactComponent as CloseIcon } from '../images/close.svg'
 import './Registration.css'
@@ -10,44 +10,50 @@ import './Registration.css'
 const driverObj = id => ({
   id,
   name: '',
-  points: {},
+  points: [{}],
   elapsedTime: 0
 })
 
 function Registration() {
   const history = useHistory()
-  const [drivers, setDrivers] = useIdb('drivers', [driverObj(0)])
+  const [tmpDrivers, setTmpDrivers] = useState([driverObj(0)])
+  const [drivers, setDrivers] = useIdb('drivers')
+
+  useEffect(() => {
+    if(isEmpty(drivers)) return
+    console.log('drivers array updated', drivers)
+    history.push('/compete')
+  }, [drivers, history])
 
   const addDriver = () => {
-    const newArray = [...drivers, driverObj(drivers.length)]
-    setDrivers(newArray)
+    const newArray = [...tmpDrivers, driverObj(tmpDrivers.length)]
+    setTmpDrivers(newArray)
   }
 
   const updateDriver = id => event => {
-    const newArray = drivers.map(driver =>
+    const newArray = tmpDrivers.map(driver =>
       driver.id === id ? { ...driver, name: event.target.value } : driver
     )
-    setDrivers(newArray)
+    setTmpDrivers(newArray)
   }
 
   const removeDriver = id => {
-    const newArray = [...drivers].filter(item => item.id !== id)
-    if (isEmpty(newArray)) return setDrivers([driverObj(0)])
-    setDrivers(newArray)
+    const newArray = [...tmpDrivers].filter(item => item.id !== id)
+    if (isEmpty(newArray)) return setTmpDrivers([driverObj(0)])
+    setTmpDrivers(newArray)
   }
 
   const startCompetition = () => {
-    const filteredDrivers = drivers.filter(driver => driver.name !== '')
+    const filteredDrivers = tmpDrivers.filter(driver => driver.name !== '')
     if (isEmpty(filteredDrivers)) return null
     setDrivers(filteredDrivers)
-    history.push('/compete')
   }
 
   return (
     <>
       <Navigation title="Register Drivers" />
       <div className="Registration">
-        {drivers.map(driver => (
+        {tmpDrivers.map(driver => (
           <div key={driver.id} className="Registration__Row">
             <input
               name="name"
@@ -67,7 +73,7 @@ function Registration() {
             )}
           </div>
         ))}
-        <Button onClick={() => addDriver()} color="primary">Add Driver</Button>
+        <Button onClick={addDriver} color="primary">Add Driver</Button>
         <Button onClick={startCompetition} color="primary">Start Competition</Button>
       </div>
     </>
