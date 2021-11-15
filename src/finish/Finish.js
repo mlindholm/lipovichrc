@@ -9,7 +9,7 @@ import { courseRules } from '../utils/rules'
 import './Finish.css'
 
 
-function Finish({restartFunc}) {
+function Finish() {
   const history = useHistory()
   const [drivers, setDrivers] = useIdb('drivers')
   const [, setCurrentDriverId] = useIdb('current-driver-id')
