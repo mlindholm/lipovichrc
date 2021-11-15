@@ -1,14 +1,15 @@
 1, Progress
 2, Reverse
-3, Self Recovery
-4, Rollover
-5, Gate Marker
-5, Gate
-6, Boundary Marker
-6, Boundary
-7, Vehicle Touch
-7, Touch
-8, Course Direction
-9, DNF
-9, D N F
-9, Did Not Finish
+3, Rollover
+4, Gate Marker
+4, Gate
+5, Boundary Marker
+5, Boundary
+6, Vehicle Touch
+6, Touch
+6, Reposition
+6, Repair
+7, Course Direction
+8, DNF
+8, D N F
+8, Did Not Finish
