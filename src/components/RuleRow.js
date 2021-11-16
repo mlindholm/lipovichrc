@@ -4,9 +4,11 @@ import { ReactComponent as HelpIcon } from '../images/help.svg'
 import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
 import './RuleRow.css'
+import useIsMounted from '../utils/useIsMounted'
 
 export default function RuleRow({ rule, value = 0, stepperFn }) {
   const [animate, setAnimate] = useState(false)
+  const isMounted = useIsMounted()
 
   useEffect(() => {
     if (value === 0) return
@@ -19,7 +21,7 @@ export default function RuleRow({ rule, value = 0, stepperFn }) {
 
   const className = classnames({
     RuleRow: true,
-    'RuleRow--animated': animate
+    'RuleRow--animated': isMounted && animate
   })
 
   return (
