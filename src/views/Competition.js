@@ -16,7 +16,7 @@ import './Competition.css'
 function Competition() {
   const history = useHistory()
   const allDrivers = useLiveQuery(() => db.drivers.toArray(), [])
-  const currentDriver = allDrivers && allDrivers.find(d => d.isCurrent)
+  const currentDriver = useLiveQuery(() => db.drivers.get({ isCurrent: 1 }), {})
   const { isRunning, elapsedTime, startTimer, stopTimer, setElapsedTime} = useTimer()
   const { segment } = useSpeechContext()
   const [segmentPosition, setSegmentPosition] = useState(-1)
@@ -24,13 +24,12 @@ function Competition() {
   useEffect(() => {
     if (!isEmpty(segment?.entities)) {
       const entityArr = segment.entities
-      const ruleId = Number(entityArr[entityArr.length - 1].value)
-      const value = currentDriver?.points[ruleId] || 0
-      const updatePoints = async (id, newValue) => await db.drivers.where({ id: currentDriver.id }).modify(d => { d.points[id] = newValue })
-
-      if (segmentPosition < entityArr.length - 1) {
-        updatePoints(ruleId, value + 1)
-        setSegmentPosition(entityArr.length - 1)
+      const entityIndex = entityArr.length - 1
+      const ruleId = Number(entityArr[entityIndex].value)
+      const value = currentDriver.points[ruleId]
+      if (segmentPosition < entityIndex) {
+        updateDriverPoints(ruleId, value + 1)
+        setSegmentPosition(entityIndex)
       }
     }
     if (segment?.isFinal) {
@@ -38,14 +37,19 @@ function Competition() {
     }
   }, [segment])
 
+  const updateDriverPoints = async (ruleId, value) => {
+    const { max } = courseRules.find(r => r.id === ruleId)
+    if (value < 0 || value > max) return
+    await db.drivers.where({ isCurrent: 1 }).modify(d => { d.points[ruleId] = value })
+  }
 
   const setPrevDriver = async () => {
     stopTimer()
     const currentIndex = allDrivers.findIndex(driver => driver.id === currentDriver.id)
     const prevDriver = allDrivers.at(currentIndex - 1)
     await db.transaction('rw', db.drivers, async () => {
-      db.drivers.update(currentDriver.id, { isCurrent: false, elapsedTime })
-      db.drivers.update(prevDriver.id, { isCurrent: true })
+      db.drivers.update(currentDriver.id, { isCurrent: 0, elapsedTime })
+      db.drivers.update(prevDriver.id, { isCurrent: 1 })
     })
     setElapsedTime(prevDriver.elapsedTime)
   }
@@ -55,16 +59,10 @@ function Competition() {
     const currentIndex = allDrivers.findIndex(driver => driver.id === currentDriver.id)
     const nextDriver = allDrivers.at(currentIndex + 1) || allDrivers.at(0)
     await db.transaction('rw', db.drivers, async () => {
-      db.drivers.update(currentDriver.id, { isCurrent: false, elapsedTime })
-      db.drivers.update(nextDriver.id, { isCurrent: true })
+      db.drivers.update(currentDriver.id, { isCurrent: 0, elapsedTime })
+      db.drivers.update(nextDriver.id, { isCurrent: 1 })
     })
     setElapsedTime(nextDriver.elapsedTime)
-  }
-
-  const onEndCompetition = () => {
-    if (window.confirm("End competition?")) {
-      history.push('/finish')
-    }
   }
 
   const pauseTimer = async () => {
@@ -74,17 +72,18 @@ function Competition() {
 
   const onTimerPress = () => isRunning ? pauseTimer() : startTimer()
 
-  const onDriverPointsChange = async (id, value, max) => {
-    if (value < 0 || value > max) return
-    await db.drivers.where({ id: currentDriver.id }).modify(d => { d.points[id] = value })
+  const onEndCompetition = () => {
+    if (window.confirm("End competition?")) {
+      history.push('/finish')
+    }
   }
 
-  if (isEmpty(allDrivers)) return <Spinner />
+  if (isEmpty(currentDriver)) return <Spinner />
 
   return (
     <>
     <Navigation
-      title={currentDriver?.name}
+      title={currentDriver.name}
       subtitle={formatDuration(elapsedTime * 100)}
       leftClickFn={setPrevDriver}
       rightClickFn={setNextDriver}
@@ -94,8 +93,8 @@ function Competition() {
         <CourseRule
           key={rule.id}
           rule={rule}
-          value={currentDriver?.points[rule.id] || 0}
-          stepperFn={onDriverPointsChange} />
+          value={currentDriver.points[rule.id]}
+          stepperFn={updateDriverPoints} />
       )}
     </div>
     <div className="Competition__Footer">

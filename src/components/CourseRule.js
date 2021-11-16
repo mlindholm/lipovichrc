@@ -5,11 +5,11 @@ import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
 import './CourseRule.css'
 
-export default function CourseRule({ rule, value, stepperFn }) {
+export default function CourseRule({ rule, value = 0, stepperFn }) {
   const [animate, setAnimate] = useState(false)
 
   useEffect(() => {
-    if (value === undefined) return
+    if (value === 0) return
     window.navigator.vibrate(20)
     setAnimate(a => !a)
     setTimeout(() => {
@@ -35,8 +35,8 @@ export default function CourseRule({ rule, value, stepperFn }) {
       </div>
       <div className="Stepper">
         <button className="Stepper__Button" onClick={() => stepperFn(rule.id, value - 1)}><RemoveIcon width={18} height={18} /></button>
-        <div className="Stepper__Input" type="number">{value || 0}</div>
-        <button className="Stepper__Button" onClick={() => stepperFn(rule.id, value + 1, rule.max)}><AddIcon width={18} height={18} /></button>
+        <div className="Stepper__Input" type="number">{value}</div>
+        <button className="Stepper__Button" onClick={() => stepperFn(rule.id, value + 1)}><AddIcon width={18} height={18} /></button>
       </div>
     </div>
   )

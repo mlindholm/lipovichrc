@@ -12,7 +12,7 @@ function Registration() {
   const allDrivers = useLiveQuery(() => db.drivers.toArray(), []);
 
   const addDriver = async () => {
-    await db.drivers.add({ name: '', isCurrent: false, points: {}, elapsedTime: 0 })
+    await db.drivers.add({ name: '', isCurrent: 0, points: {}, elapsedTime: 0 })
   }
 
   const updateDriver = async (id, name) => {
@@ -26,7 +26,7 @@ function Registration() {
   const startCompetition = async () => {
     const firstDriver = allDrivers.filter(d => d.name !== '').shift()
     await db.drivers.where({ name: '' }).delete()
-    await db.drivers.update(firstDriver.id, { isCurrent: true })
+    await db.drivers.update(firstDriver.id, { isCurrent: 1 })
     history.push('/compete')
   }
 
