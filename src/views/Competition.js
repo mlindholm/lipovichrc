@@ -4,12 +4,12 @@ import { useSpeechContext } from '@speechly/react-client'
 import formatDuration from 'format-duration'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../utils/database'
-import { courseRules } from '../utils/rules'
+import { ISRCC } from '../utils/rules'
 import { isEmpty } from '../utils/actions'
 import { useTimer } from '../utils/useTimer'
 import Navigation from '../components/Navigation'
 import Button from '../components/Button'
-import CourseRule from '../components/CourseRule'
+import RuleRow from '../components/RuleRow'
 import Spinner from '../components/Spinner'
 import './Competition.css'
 
@@ -38,7 +38,7 @@ function Competition() {
   }, [segment])
 
   const updateDriverPoints = async (ruleId, value) => {
-    const { max } = courseRules.find(r => r.id === ruleId)
+    const { max } = ISRCC.find(r => r.id === ruleId)
     if (value < 0 || value > max) return
     await db.drivers.where({ isCurrent: 1 }).modify(d => { d.points[ruleId] = value })
   }
@@ -89,8 +89,8 @@ function Competition() {
       rightClickFn={setNextDriver}
     />
     <div className="Competition">
-      {courseRules.map(rule =>
-        <CourseRule
+      {ISRCC.map(rule =>
+        <RuleRow
           key={rule.id}
           rule={rule}
           value={currentDriver.points[rule.id]}

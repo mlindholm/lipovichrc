@@ -4,7 +4,7 @@ import formatDuration from 'format-duration'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../utils/database'
 import { calculateTotal, isEmpty } from '../utils/actions'
-import { courseRules } from '../utils/rules'
+import { ISRCC } from '../utils/rules'
 import Navigation from '../components/Navigation'
 import Button from '../components/Button'
 import Spinner from '../components/Spinner'
@@ -62,7 +62,7 @@ function Finish() {
               </tr>
             </thead>
             <tbody>
-              {courseRules.map(rule => (
+              {ISRCC.map(rule => (
                 <tr>
                   <td>{rule.name}</td>
                   {allDrivers && allDrivers.map(driver => <td>{driver.points[rule.id] * rule.points || 0}</td>)}

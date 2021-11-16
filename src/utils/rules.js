@@ -1,4 +1,4 @@
-export const courseRules = [
+export const ISRCC = [
   {
     id: 1,
     name: 'Progress',

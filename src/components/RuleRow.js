@@ -3,9 +3,9 @@ import classnames from 'classnames-minimal'
 import { ReactComponent as HelpIcon } from '../images/help.svg'
 import { ReactComponent as AddIcon } from '../images/add.svg'
 import { ReactComponent as RemoveIcon } from '../images/remove.svg'
-import './CourseRule.css'
+import './RuleRow.css'
 
-export default function CourseRule({ rule, value = 0, stepperFn }) {
+export default function RuleRow({ rule, value = 0, stepperFn }) {
   const [animate, setAnimate] = useState(false)
 
   useEffect(() => {
@@ -17,19 +17,19 @@ export default function CourseRule({ rule, value = 0, stepperFn }) {
     }, 500)
   }, [value]);
 
-  const courseRuleClassName = classnames({
-    CourseRule: true,
-    'CourseRule--animated': animate
+  const className = classnames({
+    RuleRow: true,
+    'RuleRow--animated': animate
   })
 
   return (
-    <div className={courseRuleClassName}>
+    <div className={className}>
       <div>
-        <div className="CourseRule__Name">{rule.name}</div>
-        <div className="CourseRule__Points">
+        <div className="RuleRow__Name">{rule.name}</div>
+        <div className="RuleRow__Points">
           {rule.label}
           {rule.description && (
-            <button className="CourseRule__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={17} height={17} /></button>
+            <button className="RuleRow__HelpButton" onClick={() => alert(rule.description)}><HelpIcon width={17} height={17} /></button>
           )}
         </div>
       </div>
