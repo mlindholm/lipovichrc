@@ -26,7 +26,7 @@ function Competition() {
       const entityArr = segment.entities
       const entityIndex = entityArr.length - 1
       const ruleId = Number(entityArr[entityIndex].value)
-      const value = currentDriver.points[ruleId]
+      const value = currentDriver.points[ruleId] || 0
       if (segmentPosition < entityIndex) {
         updateDriverPoints(ruleId, value + 1)
         setSegmentPosition(entityIndex)
@@ -35,11 +35,13 @@ function Competition() {
     if (segment?.isFinal) {
       setSegmentPosition(-1)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [segment])
 
   const updateDriverPoints = async (ruleId, value) => {
-    const { max } = ISRCC.find(r => r.id === ruleId)
-    if (value < 0 || value > max) return
+    if (isNaN(ruleId) || isNaN(value) || value < 0) return
+    const rule = ISRCC.find(r => r.id === ruleId)
+    if (rule.max && value > rule.max) return
     await db.drivers.where({ isCurrent: 1 }).modify(d => { d.points[ruleId] = value })
   }
 
