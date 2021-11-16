@@ -20,11 +20,9 @@ function Finish() {
     {icon: '🥉', suffix: 'third'},
   ]
 
-  const confirmRestart = async () => {
-    if (window.confirm('Start a new competition?')) {
-      await db.drivers.clear()
-      history.push('/register')
-    }
+  const restartCompetition = async () => {
+    await db.drivers.clear()
+    history.push('/register')
   }
 
   if (isEmpty(allDrivers)) return <Spinner />
@@ -78,8 +76,7 @@ function Finish() {
           </table>
         </div>
         <div className="Finish__Footer">
-          <Button onClick={confirmRestart} color="primary">New Competition</Button>
-          <Button linkTo="/compete" color="secondary">Return to Competition</Button>
+          <Button onClick={restartCompetition} color="primary">New Competition</Button>
         </div>
       </div>
     </>
