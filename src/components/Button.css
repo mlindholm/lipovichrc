@@ -15,8 +15,10 @@
   text-decoration: none;
   transition: all .1s ease-in;
   width: 100%;
+  cursor: pointer;
 }
 
+.Button:hover,
 .Button:active {
   box-shadow: inset 0 0 0 100px rgba(0, 0, 0, .1);
 }
