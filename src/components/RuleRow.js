@@ -12,7 +12,9 @@ export default function RuleRow({ rule, value = 0, stepperFn }) {
 
   useEffect(() => {
     if (value === 0) return
-    window.navigator.vibrate(20)
+    if (navigator.vibrate) {
+      window.navigator.vibrate(20)
+    }
     setAnimate(a => !a)
     setTimeout(() => {
       setAnimate(a => !a)
