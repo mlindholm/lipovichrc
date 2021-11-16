@@ -3,7 +3,6 @@ entities:
    type: lookup
    input_items: $rules_spoken
    output_items: $rules_normalized
-   variant: snapping
 imports:
  - name: rules_spoken
    source: rules.csv
