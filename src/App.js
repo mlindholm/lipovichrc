@@ -11,7 +11,7 @@ import './App.css'
 
 function App() {
   return (
-    <div class="App">
+    <div className="App">
       <SpeechProvider appId="a16e8861-7891-4af4-99a8-c7dd2b674eaa" language="en-US">
         <BrowserRouter>
           <ScrollToTop />
