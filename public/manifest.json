@@ -31,5 +31,6 @@
   "display": "standalone",
   "theme_color": "#132238",
   "background_color": "#FFFFFF",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "version": "0.1"
 }
