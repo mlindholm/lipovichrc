@@ -19,26 +19,26 @@ function Competition() {
   const currentDriver = useLiveQuery(() => db.drivers.get({ isCurrent: 1 }), {})
   const { isRunning, elapsedTime, startTimer, stopTimer, setElapsedTime} = useTimer()
   const { segment } = useSpeechContext()
-  const [segmentPosition, setSegmentPosition] = useState(-1)
+  const [prevEntityIndex, setPrevEntityIndex] = useState(-1)
 
   useEffect(() => {
-    if (!isEmpty(segment?.entities)) {
-      const entityArr = segment.entities
-      const entityIndex = entityArr.length - 1
-      const ruleId = Number(entityArr[entityIndex].value)
-      const value = currentDriver.points[ruleId] || 0
-      if (segmentPosition < entityIndex) {
-        updateDriverPoints(ruleId, value + 1)
-        setSegmentPosition(entityIndex)
+    if (!isEmpty(segment.entities)) {
+      const { entities } = segment
+      const entityIndex = entities.length - 1
+      const ruleId = Number(entities[entityIndex].value)
+      if (prevEntityIndex < entityIndex) {
+        const value = currentDriver.points[ruleId] || 0
+        updatePoints(ruleId, value + 1)
+        setPrevEntityIndex(entityIndex)
       }
     }
     if (segment?.isFinal) {
-      setSegmentPosition(-1)
+      setPrevEntityIndex(-1)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [segment])
 
-  const updateDriverPoints = async (ruleId, value) => {
+  const updatePoints = async (ruleId, value) => {
     if (isNaN(ruleId) || isNaN(value) || value < 0) return
     const rule = ISRCC.find(r => r.id === ruleId)
     if (rule.max && value > rule.max) return
@@ -96,7 +96,7 @@ function Competition() {
           key={rule.id}
           rule={rule}
           value={currentDriver.points[rule.id]}
-          stepperFn={updateDriverPoints} />
+          stepperFn={updatePoints} />
       )}
     </div>
     <div className="Competition__Footer">
