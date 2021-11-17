@@ -22,7 +22,7 @@ function Competition() {
   const [prevEntityIndex, setPrevEntityIndex] = useState(-1)
 
   useEffect(() => {
-    if (!isEmpty(segment.entities)) {
+    if (!isEmpty(segment?.entities)) {
       const { entities } = segment
       const entityIndex = entities.length - 1
       const ruleId = Number(entities[entityIndex].value)
